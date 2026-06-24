@@ -1,0 +1,23 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Colección plana de tareas. Cada documento guarda un campo `userId`
+    // que identifica a su dueño. Toda la seguridad se apoya en ese campo.
+    match /tasks/{taskId} {
+
+      // Leer (get + list), actualizar y borrar: solo si el usuario está
+      // autenticado y es el dueño del documento que YA existe.
+      // Acá `resource.data` es el documento tal cual está guardado.
+      allow read, update, delete: if request.auth != null
+        && request.auth.uid == resource.data.userId;
+
+      // Crear: el documento todavía no existe, así que validamos contra
+      // los datos ENTRANTES (`request.resource.data`). Impedimos que un
+      // usuario cree una tarea a nombre de otro.
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.userId;
+    }
+  }
+}
