@@ -5,6 +5,7 @@
 
 import { useState } from "react";
 import type { FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { loginWithEmail, loginWithGoogle } from "../services/authService";
 import { validateAuthForm } from "../utils/validation";
 import type { ValidationErrors } from "../utils/validation";
@@ -88,6 +89,10 @@ export function Login() {
       <button type="button" onClick={handleGoogle} disabled={loading}>
         Continuar con Google
       </button>
+
+      <p>
+        ¿No tenés cuenta? <Link to="/register">Registrate</Link>
+      </p>
     </form>
   );
 }
