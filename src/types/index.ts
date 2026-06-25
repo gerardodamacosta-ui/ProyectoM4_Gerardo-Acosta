@@ -12,6 +12,8 @@ export interface AuthFormValues {
 
 // --- Tareas (Hito 5) ---
 
+export type Priority = "low" | "medium" | "high";
+
 // Una tarea tal como vive en Firestore. El `id` es el id del documento y
 // `userId` es el dueño: sobre ese campo se apoyan las reglas de seguridad.
 export interface Task {
@@ -21,8 +23,8 @@ export interface Task {
   description: string;
   completed: boolean;
   createdAt: Timestamp;
-  dueDate?: Timestamp; // extra: fecha de vencimiento (opcional)
-  priority?: "low" | "medium" | "high"; // extra: prioridad (opcional)
+  dueDate?: Timestamp;
+  priority?: Priority;
 }
 
 // Lo que el formulario produce. `dueDate` es string en el form (input date)
@@ -32,7 +34,7 @@ export interface TaskFormValues {
   title: string;
   description: string;
   dueDate?: string;
-  priority?: "low" | "medium" | "high";
+  priority?: Priority;
 }
 
 // Estados del filtro de la lista de tareas.

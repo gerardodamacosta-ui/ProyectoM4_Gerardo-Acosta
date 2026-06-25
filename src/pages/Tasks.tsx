@@ -1,24 +1,49 @@
 // src/pages/Tasks.tsx
-// Página protegida. Por ahora es un placeholder: el CRUD real llega en el Hito 6.
-// Sirve para verificar el flujo de rutas protegidas y el logout.
+// Página protegida de gestión de tareas. Ensambla el hook useTasks con los
+// componentes de UI. No contiene lógica de negocio ni llamadas a Firestore.
 
 import { useAuth } from "../hooks/useAuth";
+import { useTasks } from "../hooks/useTasks";
 import { logout } from "../services/authService";
+import { TaskForm } from "../components/TaskForm";
+import { TaskList } from "../components/TaskList";
 
 export function Tasks() {
   const { user } = useAuth();
+  const {
+    filteredTasks,
+    loading,
+    error,
+    filter,
+    setFilter,
+    addTask,
+    editTask,
+    removeTask,
+    toggleTask,
+  } = useTasks(user!.uid);
 
   return (
     <div>
-      <h1>Mis tareas</h1>
-      <p>Sesión iniciada como {user?.email}</p>
-      <p>Acá va a ir el CRUD de tareas (Hito 6).</p>
+      <header>
+        <h1>Mis tareas</h1>
+        <span>{user?.email}</span>
+        <button type="button" onClick={() => logout()}>
+          Cerrar sesión
+        </button>
+      </header>
 
-      {/* Al cerrar sesión, el AuthProvider detecta el cambio y ProtectedRoute
-          rebota automáticamente a /login. No hace falta navegar a mano. */}
-      <button type="button" onClick={() => logout()}>
-        Cerrar sesión
-      </button>
+      <TaskForm onSubmit={addTask} />
+
+      <TaskList
+        tasks={filteredTasks}
+        loading={loading}
+        error={error}
+        filter={filter}
+        onFilterChange={setFilter}
+        onToggle={toggleTask}
+        onEdit={editTask}
+        onDelete={removeTask}
+      />
     </div>
   );
 }
