@@ -41,6 +41,7 @@ export function Tasks() {
     <>
       <Header
         userEmail={user!.email!}
+        photoURL={user!.photoURL}
         theme={theme}
         onToggleTheme={toggleTheme}
         onLogout={logout}

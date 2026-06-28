@@ -1,0 +1,63 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--modal-border);
+  border-radius: 8px;
+  padding: 32px;
+  width: min(520px, 92vw);
+  max-height: 85vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Títulos en monospace (heredado del global) */
+.title {
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--modal-title);
+  text-align: center;
+  margin: 0;
+}
+
+/* Cuerpo en sans-serif para mejor legibilidad */
+.body {
+  font-family: system-ui, -apple-system, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Títulos de sección en monospace */
+.sectionTitle {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+}
+
+.sectionText {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 0;
+}
+
