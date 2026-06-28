@@ -32,6 +32,7 @@ const BASE_PROPS = {
   onToggle: vi.fn(),
   onEdit: vi.fn(),
   onDelete: vi.fn(),
+  onDeleteMany: vi.fn(),
 };
 
 function makeTask(overrides: Partial<Task> = {}): Task {

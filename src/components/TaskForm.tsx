@@ -4,6 +4,7 @@
 
 import { useState } from "react";
 import type { TaskFormValues, Priority } from "../types";
+import styles from "./TaskForm.module.css";
 
 interface TaskFormProps {
   onSubmit: (values: TaskFormValues) => Promise<void>;
@@ -59,9 +60,9 @@ export function TaskForm({ onSubmit, initialValues, onCancel }: TaskFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Título *</label>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.field}>
+        <label htmlFor="title" className={styles.label}>Título *</label>
         <input
           id="title"
           name="title"
@@ -70,11 +71,12 @@ export function TaskForm({ onSubmit, initialValues, onCancel }: TaskFormProps) {
           onChange={handleChange}
           disabled={submitting}
           required
+          className={styles.input}
         />
       </div>
 
-      <div>
-        <label htmlFor="description">Descripción</label>
+      <div className={styles.field}>
+        <label htmlFor="description" className={styles.label}>Descripción</label>
         <textarea
           id="description"
           name="description"
@@ -82,45 +84,50 @@ export function TaskForm({ onSubmit, initialValues, onCancel }: TaskFormProps) {
           onChange={handleChange}
           disabled={submitting}
           rows={3}
+          className={styles.input}
         />
       </div>
 
-      <div>
-        <label htmlFor="priority">Prioridad</label>
-        <select
-          id="priority"
-          name="priority"
-          value={values.priority ?? ""}
-          onChange={handleChange}
-          disabled={submitting}
-        >
-          <option value="">Sin prioridad</option>
-          <option value={"low" satisfies Priority}>Baja</option>
-          <option value={"medium" satisfies Priority}>Media</option>
-          <option value={"high" satisfies Priority}>Alta</option>
-        </select>
+      <div className={styles.row}>
+        <div className={styles.field}>
+          <label htmlFor="priority" className={styles.label}>Prioridad</label>
+          <select
+            id="priority"
+            name="priority"
+            value={values.priority ?? ""}
+            onChange={handleChange}
+            disabled={submitting}
+            className={styles.input}
+          >
+            <option value="">Sin prioridad</option>
+            <option value={"low" satisfies Priority}>Baja</option>
+            <option value={"medium" satisfies Priority}>Media</option>
+            <option value={"high" satisfies Priority}>Alta</option>
+          </select>
+        </div>
+
+        <div className={styles.field}>
+          <label htmlFor="dueDate" className={styles.label}>Fecha de vencimiento</label>
+          <input
+            id="dueDate"
+            name="dueDate"
+            type="date"
+            value={values.dueDate ?? ""}
+            onChange={handleChange}
+            disabled={submitting}
+            className={styles.input}
+          />
+        </div>
       </div>
 
-      <div>
-        <label htmlFor="dueDate">Fecha de vencimiento</label>
-        <input
-          id="dueDate"
-          name="dueDate"
-          type="date"
-          value={values.dueDate ?? ""}
-          onChange={handleChange}
-          disabled={submitting}
-        />
-      </div>
+      {error && <p role="alert" className={styles.error}>{error}</p>}
 
-      {error && <p role="alert">{error}</p>}
-
-      <div>
-        <button type="submit" disabled={submitting}>
-          {submitting ? "Guardando…" : initialValues ? "Guardar cambios" : "Crear tarea"}
+      <div className={styles.buttons}>
+        <button type="submit" disabled={submitting} className={styles.submitBtn}>
+          {submitting ? "Guardando…" : initialValues ? "Guardar cambios" : "+ Crear tarea"}
         </button>
         {onCancel && (
-          <button type="button" onClick={onCancel} disabled={submitting}>
+          <button type="button" onClick={onCancel} disabled={submitting} className={styles.cancelBtn}>
             Cancelar
           </button>
         )}

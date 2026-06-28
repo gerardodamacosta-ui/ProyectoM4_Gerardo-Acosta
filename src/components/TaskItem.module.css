@@ -1,0 +1,155 @@
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  transition: border-left-color 0.2s, opacity 0.2s;
+}
+
+.item.completed {
+  border-left-color: var(--color-completed-border);
+  opacity: 0.45;
+}
+
+/* Checkbox de completado — acento */
+.checkToggle {
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Checkbox de selección — acento secundario */
+.checkSelect {
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--accent-secondary);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.item.completed .title {
+  text-decoration: line-through;
+}
+
+.description {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+/* Badges de prioridad */
+.badge {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.badgeHigh {
+  background: var(--priority-high-bg);
+  color: var(--priority-high-text);
+}
+
+.badgeMedium {
+  background: var(--priority-medium-bg);
+  color: var(--priority-medium-text);
+}
+
+.badgeLow {
+  background: var(--priority-low-bg);
+  color: var(--priority-low-text);
+}
+
+.dueDate {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+/* Botones de acción */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.editBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.editBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.deleteBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.deleteBtn:hover:not(:disabled) {
+  border-color: var(--color-delete);
+  color: var(--color-delete);
+}
+
+.deleteBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Modo edición inline: anula el margen lateral del TaskForm */
+.editContainer {
+  list-style: none;
+}
+
+.editContainer :global(.form) {
+  /* TaskForm tiene margin lateral en su module — lo neutralizamos acá */
+  margin-left: 0;
+  margin-right: 0;
+}

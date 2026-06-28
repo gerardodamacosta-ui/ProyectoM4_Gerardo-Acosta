@@ -4,6 +4,7 @@
 
 import { useState } from "react";
 import { sendTaskSummaryEmail } from "../services/emailService";
+import styles from "./SendSummaryButton.module.css";
 
 interface SendSummaryButtonProps {
   to: string;
@@ -36,21 +37,22 @@ export function SendSummaryButton({
   }
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <button
         type="button"
         onClick={handleSend}
         disabled={state === "loading"}
+        className={styles.btn}
       >
         {state === "loading" ? "Enviando…" : "Enviar resumen por email"}
       </button>
 
       {state === "success" && (
-        <p role="status">Resumen enviado a {to}.</p>
+        <p role="status" className={styles.success}>Resumen enviado a {to}.</p>
       )}
 
       {state === "error" && (
-        <p role="alert">{errorMessage}</p>
+        <p role="alert" className={styles.error}>{errorMessage}</p>
       )}
     </div>
   );

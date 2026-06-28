@@ -1,0 +1,67 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--header-text);
+}
+
+.logoAccent {
+  color: var(--accent-secondary);
+}
+
+.email {
+  font-size: 12px;
+  color: var(--header-text-secondary);
+  letter-spacing: 1px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.themeBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--header-text);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 16px;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: 0;
+  transition: border-color 0.15s;
+}
+
+.themeBtn:hover {
+  border-color: var(--accent);
+}
+
+.logoutBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--header-text-secondary);
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 11px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.logoutBtn:hover {
+  border-color: var(--color-delete);
+  color: var(--color-delete);
+}

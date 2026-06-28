@@ -3,14 +3,19 @@
 // componentes de UI. No contiene lógica de negocio ni llamadas a Firestore.
 
 import { useAuth } from "../hooks/useAuth";
+import { useTheme } from "../hooks/useTheme";
 import { useTasks } from "../hooks/useTasks";
 import { logout } from "../services/authService";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import { CounterCards } from "../components/CounterCards";
 import { TaskForm } from "../components/TaskForm";
 import { TaskList } from "../components/TaskList";
 import { SendSummaryButton } from "../components/SendSummaryButton";
 
 export function Tasks() {
   const { user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const {
     tasks,
     filteredTasks,
@@ -24,20 +29,28 @@ export function Tasks() {
     toggleTask,
   } = useTasks(user!.uid);
 
-  // Los conteos se calculan sobre `tasks` (array completo, sin filtro aplicado)
-  // para que el resumen del email refleje el estado real, no el filtro activo.
+  // Conteos sobre el array completo (sin filtro) para los counters y el email
   const pending = tasks.filter((t) => !t.completed).length;
   const completed = tasks.filter((t) => t.completed).length;
 
+  async function removeMany(ids: string[]) {
+    await Promise.all(ids.map(removeTask));
+  }
+
   return (
-    <div>
-      <header>
-        <h1>Mis tareas</h1>
-        <span>{user?.email}</span>
-        <button type="button" onClick={() => logout()}>
-          Cerrar sesión
-        </button>
-      </header>
+    <>
+      <Header
+        userEmail={user!.email!}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        onLogout={logout}
+      />
+
+      <CounterCards
+        total={tasks.length}
+        pending={pending}
+        completed={completed}
+      />
 
       <TaskForm onSubmit={addTask} />
 
@@ -50,6 +63,7 @@ export function Tasks() {
         onToggle={toggleTask}
         onEdit={editTask}
         onDelete={removeTask}
+        onDeleteMany={removeMany}
       />
 
       <SendSummaryButton
@@ -57,6 +71,8 @@ export function Tasks() {
         pending={pending}
         completed={completed}
       />
-    </div>
+
+      <Footer />
+    </>
   );
 }

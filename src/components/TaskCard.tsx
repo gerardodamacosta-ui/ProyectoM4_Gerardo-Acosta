@@ -1,15 +1,13 @@
-// src/components/TaskItem.tsx
-// Muestra una tarea individual con sus acciones: completar, editar, eliminar.
-// Cuando el usuario pulsa "Editar", reemplaza la vista por el TaskForm inline.
+// src/components/TaskCard.tsx
+// Variante card de una tarea para la vista grilla (Solapa).
+// Misma lógica que TaskItem pero con borde superior en lugar de izquierdo.
 
 import { useState } from "react";
 import { TaskForm } from "./TaskForm";
 import type { Task, TaskFormValues } from "../types";
 import type { Timestamp } from "firebase/firestore";
-import styles from "./TaskItem.module.css";
+import styles from "./TaskCard.module.css";
 
-// Usa métodos locales (getFullYear/getMonth/getDate) en lugar de toISOString()
-// para evitar que la conversión a UTC desplace la fecha en zonas UTC-.
 function toLocalDateString(ts: Timestamp): string {
   const d = ts.toDate();
   const year = d.getFullYear();
@@ -30,7 +28,7 @@ const PRIORITY_CLASS: Record<NonNullable<Task["priority"]>, string> = {
   high: styles.badgeHigh,
 };
 
-interface TaskItemProps {
+interface TaskCardProps {
   task: Task;
   isSelected: boolean;
   onSelect: (taskId: string) => void;
@@ -39,14 +37,14 @@ interface TaskItemProps {
   onDelete: (taskId: string) => Promise<void>;
 }
 
-export function TaskItem({
+export function TaskCard({
   task,
   isSelected,
   onSelect,
   onToggle,
   onEdit,
   onDelete,
-}: TaskItemProps) {
+}: TaskCardProps) {
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -75,52 +73,51 @@ export function TaskItem({
 
   if (editing) {
     return (
-      <li className={styles.editContainer}>
+      <div className={styles.editContainer}>
         <TaskForm
           initialValues={initialValues}
           onSubmit={handleEdit}
           onCancel={() => setEditing(false)}
         />
-      </li>
+      </div>
     );
   }
 
   return (
-    <li className={`${styles.item} ${task.completed ? styles.completed : ""}`}>
-      <input
-        type="checkbox"
-        className={styles.checkToggle}
-        checked={task.completed}
-        onChange={() => onToggle(task.id, task.completed)}
-        aria-label={`Marcar "${task.title}" como ${task.completed ? "pendiente" : "completada"}`}
-      />
-
-      <input
-        type="checkbox"
-        className={styles.checkSelect}
-        checked={isSelected}
-        onChange={() => onSelect(task.id)}
-        aria-label={`Seleccionar "${task.title}"`}
-      />
-
-      <div className={styles.content}>
-        <strong className={styles.title}>{task.title}</strong>
-        {task.description && (
-          <p className={styles.description}>{task.description}</p>
+    <div className={`${styles.card} ${task.completed ? styles.completed : ""}`}>
+      <div className={styles.cardHeader}>
+        <input
+          type="checkbox"
+          className={styles.checkToggle}
+          checked={task.completed}
+          onChange={() => onToggle(task.id, task.completed)}
+          aria-label={`Marcar "${task.title}" como ${task.completed ? "pendiente" : "completada"}`}
+        />
+        <input
+          type="checkbox"
+          className={styles.checkSelect}
+          checked={isSelected}
+          onChange={() => onSelect(task.id)}
+          aria-label={`Seleccionar "${task.title}"`}
+        />
+        {task.priority && (
+          <span className={`${styles.badge} ${PRIORITY_CLASS[task.priority]}`}>
+            {PRIORITY_LABEL[task.priority]}
+          </span>
         )}
-        <div className={styles.meta}>
-          {task.priority && (
-            <span className={`${styles.badge} ${PRIORITY_CLASS[task.priority]}`}>
-              {PRIORITY_LABEL[task.priority]}
-            </span>
-          )}
-          {task.dueDate && (
-            <span className={styles.dueDate}>
-              {task.dueDate.toDate().toLocaleDateString("es-AR")}
-            </span>
-          )}
-        </div>
       </div>
+
+      <strong className={styles.title}>{task.title}</strong>
+
+      {task.description && (
+        <p className={styles.description}>{task.description}</p>
+      )}
+
+      {task.dueDate && (
+        <span className={styles.dueDate}>
+          {task.dueDate.toDate().toLocaleDateString("es-AR")}
+        </span>
+      )}
 
       <div className={styles.actions}>
         <button
@@ -139,6 +136,6 @@ export function TaskItem({
           {deleting ? "…" : "Eliminar"}
         </button>
       </div>
-    </li>
+    </div>
   );
 }

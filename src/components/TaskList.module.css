@@ -1,0 +1,204 @@
+.section {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Barra superior: toggle + acciones de selección */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Toggle Lista / Solapa (pill) */
+.viewToggle {
+  display: flex;
+}
+
+.viewBtn {
+  padding: 6px 18px;
+  background: var(--btn-inactive-bg);
+  color: var(--btn-inactive-color);
+  border: 1px solid var(--btn-inactive-border);
+  font-size: 11px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.viewBtn:first-child {
+  border-radius: 4px 0 0 4px;
+  border-right: none;
+}
+
+.viewBtn:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.viewBtnActive {
+  background: var(--btn-active-bg);
+  color: var(--btn-active-color);
+  border-color: var(--btn-active-border);
+}
+
+/* Acciones de selección múltiple */
+.bulkActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selectAllBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 11px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.selectAllBtn:hover {
+  border-color: var(--accent-secondary);
+  color: var(--accent-secondary);
+}
+
+.deleteBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 11px;
+  opacity: 0.35;
+  pointer-events: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s;
+}
+
+.deleteBtnActive {
+  opacity: 1;
+  pointer-events: auto;
+  border-color: var(--color-delete);
+  color: var(--color-delete);
+}
+
+.deleteBtnActive:hover {
+  background: var(--color-delete);
+  color: #fff;
+}
+
+/* Estados generales */
+.message {
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  padding: 24px 0;
+  text-align: center;
+  margin: 0;
+}
+
+.error {
+  font-size: 13px;
+  color: var(--color-delete);
+  letter-spacing: 0.5px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-delete);
+  border-radius: 4px;
+  margin: 0;
+}
+
+/* Vista Lista: filtros sueltos */
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  background: var(--btn-inactive-bg);
+  color: var(--btn-inactive-color);
+  border: 1px solid var(--btn-inactive-border);
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 11px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.filterBtnActive {
+  background: var(--btn-active-bg);
+  color: var(--btn-active-color);
+  border-color: var(--btn-active-border);
+}
+
+/* Lista de tareas */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Vista Solapa: container con tabs pegadas */
+.gridContainer {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.tabs {
+  display: flex;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 0;
+  background: var(--btn-inactive-bg);
+  color: var(--btn-inactive-color);
+  border: none;
+  border-right: 1px solid var(--border);
+  font-size: 11px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tab:last-child {
+  border-right: none;
+}
+
+.tabActive {
+  background: var(--btn-active-bg);
+  color: var(--btn-active-color);
+  border-bottom: 2px solid var(--accent);
+}
+
+.gridContent {
+  padding: 16px;
+  background: var(--bg-card);
+}
+
+/* Grilla 2 columnas de cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 0 12px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topBar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
