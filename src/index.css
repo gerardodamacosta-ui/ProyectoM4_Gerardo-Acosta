@@ -1,6 +1,8 @@
 /* Variables de tema — dark por defecto, .light como override */
 
 :root {
+  color-scheme: dark;
+
   /* Fondos */
   --bg: #0d0f14;
   --bg-card: #111318;
@@ -18,19 +20,21 @@
   --text-muted: #4a5568;
 
   /* Header / Footer */
+  --header-height: 58px;
   --header-bg: #111318;
   --footer-bg: #111318;
   --header-text: #c6d0c6;
   --header-text-secondary: #6b8c6b;
 
   /* Botones inactivos (filtros, toggles) */
-  --btn-inactive-bg: #111318;
-  --btn-inactive-color: #4a5568;
-  --btn-inactive-border: #1a2a1a;
+  --btn-inactive-bg: transparent;
+  --btn-inactive-color: #39ff14;
+  --btn-inactive-border: #39ff14;
+  --pill-border: #39ff14;
 
   /* Botones activos */
-  --btn-active-bg: #0d0f14;
-  --btn-active-color: #39ff14;
+  --btn-active-bg: #39ff14;
+  --btn-active-color: #0d0f14;
   --btn-active-border: #39ff14;
 
   /* Badges de prioridad */
@@ -50,6 +54,7 @@
   /* Modal */
   --modal-overlay: rgba(0, 0, 0, 0.75);
   --modal-border: #39ff14;
+  --modal-title: #39ff14;
 
   /* Inputs */
   --input-bg: #0d0f14;
@@ -61,6 +66,8 @@
 }
 
 :root.light {
+  color-scheme: light;
+
   --bg: #f3effe;
   --bg-card: #ede9fe;
   --border: #a78bfa;
@@ -74,13 +81,14 @@
   --header-text: #e9d5ff;
   --header-text-secondary: #c4b5fd;
 
-  --btn-inactive-bg: #7c3aed;
-  --btn-inactive-color: #ffffff;
-  --btn-inactive-border: #5b21b6;
+  --btn-inactive-bg: transparent;
+  --btn-inactive-color: #7c3aed;
+  --btn-inactive-border: #7c3aed;
+  --pill-border: var(--accent-secondary);
 
-  --btn-active-bg: #3b0764;
+  --btn-active-bg: #7c3aed;
   --btn-active-color: #ffffff;
-  --btn-active-border: #2e0550;
+  --btn-active-border: #7c3aed;
 
   --priority-high-bg: #fef2f2;
   --priority-high-text: #dc2626;
@@ -94,7 +102,8 @@
   --color-delete: #dc2626;
   --color-completed-border: #a78bfa;
 
-  --modal-border: #dc2626;
+  --modal-border: #7c3aed;
+  --modal-title: #7c3aed;
 
   --input-bg: #f5effe;
   --input-border: #a78bfa;
@@ -167,10 +176,17 @@ select {
   border-radius: 4px;
   outline: none;
   transition: border-color 0.15s;
+  color-scheme: dark;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
   border-color: var(--input-focus-border);
+}
+
+:root.light input,
+:root.light textarea,
+:root.light select {
+  color-scheme: light;
 }

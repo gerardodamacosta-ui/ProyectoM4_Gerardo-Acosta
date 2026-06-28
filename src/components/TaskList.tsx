@@ -148,11 +148,11 @@ export function TaskList({
 
       {/* Vista Lista */}
       {view === "list" && (
-        <>
+        <div className={styles.container}>
           <div
             role="group"
             aria-label="Filtrar tareas"
-            className={styles.filters}
+            className={styles.tabs}
           >
             {FILTER_OPTIONS.map(({ value, label }) => (
               <button
@@ -160,38 +160,40 @@ export function TaskList({
                 type="button"
                 onClick={() => onFilterChange(value)}
                 aria-pressed={filter === value}
-                className={`${styles.filterBtn} ${filter === value ? styles.filterBtnActive : ""}`}
+                className={`${styles.tab} ${filter === value ? styles.tabActive : ""}`}
               >
                 {label}
               </button>
             ))}
           </div>
 
-          {!loading && !error && tasks.length === 0 && (
-            <p className={styles.message}>{emptyMessage}</p>
-          )}
+          <div className={styles.content}>
+            {!loading && !error && tasks.length === 0 && (
+              <p className={styles.message}>{emptyMessage}</p>
+            )}
 
-          {hasTasks && (
-            <ul className={styles.list}>
-              {tasks.map((task) => (
-                <TaskItem
-                  key={task.id}
-                  task={task}
-                  isSelected={selectedIds.has(task.id)}
-                  onSelect={toggleSelect}
-                  onToggle={onToggle}
-                  onEdit={onEdit}
-                  onDelete={onDelete}
-                />
-              ))}
-            </ul>
-          )}
-        </>
+            {hasTasks && (
+              <ul className={styles.list}>
+                {tasks.map((task) => (
+                  <TaskItem
+                    key={task.id}
+                    task={task}
+                    isSelected={selectedIds.has(task.id)}
+                    onSelect={toggleSelect}
+                    onToggle={onToggle}
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                  />
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
       )}
 
       {/* Vista Solapa */}
       {view === "grid" && (
-        <div className={styles.gridContainer}>
+        <div className={styles.container}>
           <div role="group" aria-label="Filtrar tareas" className={styles.tabs}>
             {FILTER_OPTIONS.map(({ value, label }) => (
               <button
@@ -206,7 +208,7 @@ export function TaskList({
             ))}
           </div>
 
-          <div className={styles.gridContent}>
+          <div className={styles.content}>
             {!loading && !error && tasks.length === 0 && (
               <p className={styles.message}>{emptyMessage}</p>
             )}

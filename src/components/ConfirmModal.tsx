@@ -25,6 +25,7 @@ export function ConfirmModal({ count, onConfirm, onCancel }: ConfirmModalProps) 
         <p className={styles.message}>
           Esta acción vaciará la lista y no se puede deshacer.
         </p>
+        <span className={styles.icon} aria-hidden="true">&#x2622;&#xFE0F;</span>
         <div className={styles.actions}>
           <button type="button" onClick={onCancel} className={styles.cancelBtn}>
             Cancelar
