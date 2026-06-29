@@ -144,9 +144,19 @@
   color: #8aaa8a;
 }
 
+:global(:root:not(.light)) .editBtn:hover {
+  border-color: var(--pill-border);
+  color: var(--pill-border);
+}
+
 :global(:root:not(.light)) .deleteBtn {
   border-color: #3a5a3a;
   color: #8aaa8a;
+}
+
+:global(:root:not(.light)) .deleteBtn:hover:not(:disabled) {
+  border-color: var(--color-delete);
+  color: var(--color-delete);
 }
 
 /* Modo edición inline: anula el margen lateral del TaskForm */
