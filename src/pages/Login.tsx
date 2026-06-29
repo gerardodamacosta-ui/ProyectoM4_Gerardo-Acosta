@@ -161,7 +161,7 @@ export function Login() {
           {"</>"}
         </div>
         <h1 className={styles.brand}>MateCode</h1>
-        <p className={styles.tagline}>Organizá tu trabajo, task a task…</p>
+        <p className={styles.tagline}>Organizá tus tareas y mantenete al día</p>
 
         {/* Formulario */}
         <form onSubmit={handleSubmit} noValidate className={styles.form}>
