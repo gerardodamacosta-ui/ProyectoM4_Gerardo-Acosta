@@ -41,7 +41,7 @@ export function SendSummaryButton({
         disabled={loading}
         className={styles.btn}
       >
-        {loading ? "Enviando…" : "Enviar resumen por email"}
+        ✉ {loading ? "Enviando…" : "Enviar resumen"}
       </button>
     </div>
   );

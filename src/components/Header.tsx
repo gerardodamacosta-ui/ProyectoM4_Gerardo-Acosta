@@ -4,6 +4,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { InstructionsModal } from "./InstructionsModal";
+import { SendSummaryButton } from "./SendSummaryButton";
 import styles from "./Header.module.css";
 
 interface HeaderProps {
@@ -12,6 +13,9 @@ interface HeaderProps {
   theme: "dark" | "light";
   onToggleTheme: () => void;
   onLogout: () => void;
+  to: string;
+  pending: number;
+  completed: number;
 }
 
 export function Header({
@@ -20,6 +24,9 @@ export function Header({
   theme,
   onToggleTheme,
   onLogout,
+  to,
+  pending,
+  completed,
 }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
@@ -57,6 +64,8 @@ export function Header({
           >
             {theme === "dark" ? "☀" : "🌙"}
           </button>
+
+          <SendSummaryButton to={to} pending={pending} completed={completed} />
 
           <div className={styles.menuContainer} ref={menuRef}>
             <button

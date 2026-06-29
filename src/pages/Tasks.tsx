@@ -11,7 +11,6 @@ import { Footer } from "../components/Footer";
 import { CounterCards } from "../components/CounterCards";
 import { TaskForm } from "../components/TaskForm";
 import { TaskList } from "../components/TaskList";
-import { SendSummaryButton } from "../components/SendSummaryButton";
 
 export function Tasks() {
   const { user } = useAuth();
@@ -42,6 +41,9 @@ export function Tasks() {
         theme={theme}
         onToggleTheme={toggleTheme}
         onLogout={logout}
+        to={user!.email!}
+        pending={pending}
+        completed={completed}
       />
 
       <CounterCards
@@ -62,12 +64,6 @@ export function Tasks() {
         onEdit={editTask}
         onDelete={removeTask}
         onDeleteMany={removeMany}
-      />
-
-      <SendSummaryButton
-        to={user!.email!}
-        pending={pending}
-        completed={completed}
       />
 
       <Footer />
