@@ -1,9 +1,11 @@
 // src/components/SendSummaryButton.tsx
-// Botón que envía el resumen de tareas por email. Maneja sus propios estados
-// de loading / success / error para no ensuciar la página Tasks.
+// Botón que envía el resumen de tareas por email.
+// El feedback de éxito/error se delega a react-hot-toast.
 
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { sendTaskSummaryEmail } from "../services/emailService";
+import { MESSAGES } from "../constants/messages";
 import styles from "./SendSummaryButton.module.css";
 
 interface SendSummaryButtonProps {
@@ -12,27 +14,22 @@ interface SendSummaryButtonProps {
   completed: number;
 }
 
-type SendState = "idle" | "loading" | "success" | "error";
-
 export function SendSummaryButton({
   to,
   pending,
   completed,
 }: SendSummaryButtonProps) {
-  const [state, setState] = useState<SendState>("idle");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   async function handleSend() {
-    setState("loading");
-    setErrorMessage(null);
+    setLoading(true);
     try {
       await sendTaskSummaryEmail(to, { pending, completed });
-      setState("success");
-    } catch (error) {
-      setErrorMessage(
-        error instanceof Error ? error.message : "Error al enviar el email."
-      );
-      setState("error");
+      toast.success(MESSAGES.email.success);
+    } catch {
+      toast.error(MESSAGES.email.error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -41,19 +38,11 @@ export function SendSummaryButton({
       <button
         type="button"
         onClick={handleSend}
-        disabled={state === "loading"}
+        disabled={loading}
         className={styles.btn}
       >
-        {state === "loading" ? "Enviando…" : "Enviar resumen por email"}
+        {loading ? "Enviando…" : "Enviar resumen por email"}
       </button>
-
-      {state === "success" && (
-        <p role="status" className={styles.success}>Resumen enviado a {to}.</p>
-      )}
-
-      {state === "error" && (
-        <p role="alert" className={styles.error}>{errorMessage}</p>
-      )}
     </div>
   );
 }

@@ -4,6 +4,7 @@
 // imports de firebase/firestore.
 
 import { useState, useEffect, useCallback } from "react";
+import toast from "react-hot-toast";
 import {
   subscribeToUserTasks,
   createTask,
@@ -11,6 +12,7 @@ import {
   deleteTask,
   toggleTaskCompleted,
 } from "../services/firestoreService";
+import { MESSAGES } from "../constants/messages";
 import type { Task, TaskFormValues, TaskFilter } from "../types";
 
 interface UseTasksResult {
@@ -23,6 +25,7 @@ interface UseTasksResult {
   addTask: (values: TaskFormValues) => Promise<void>;
   editTask: (taskId: string, values: TaskFormValues) => Promise<void>;
   removeTask: (taskId: string) => Promise<void>;
+  removeMany: (ids: string[]) => Promise<void>;
   toggleTask: (taskId: string, currentValue: boolean) => Promise<void>;
 }
 
@@ -64,25 +67,54 @@ export function useTasks(userId: string): UseTasksResult {
 
   const addTask = useCallback(
     async (values: TaskFormValues) => {
-      await createTask(userId, values);
+      try {
+        await createTask(userId, values);
+        toast.success(MESSAGES.task.created);
+      } catch {
+        toast.error(MESSAGES.task.createError);
+      }
     },
     [userId]
   );
 
   const editTask = useCallback(
     async (taskId: string, values: TaskFormValues) => {
-      await updateTask(taskId, values);
+      try {
+        await updateTask(taskId, values);
+        toast.success(MESSAGES.task.updated);
+      } catch {
+        toast.error(MESSAGES.task.updateError);
+      }
     },
     []
   );
 
   const removeTask = useCallback(async (taskId: string) => {
-    await deleteTask(taskId);
+    try {
+      await deleteTask(taskId);
+      toast.success(MESSAGES.task.deleted);
+    } catch {
+      toast.error(MESSAGES.task.deleteError);
+    }
+  }, []);
+
+  // Llama a deleteTask directamente para evitar N toasts individuales de removeTask
+  const removeMany = useCallback(async (ids: string[]) => {
+    try {
+      await Promise.all(ids.map(deleteTask));
+      toast.success(MESSAGES.task.deletedMany(ids.length));
+    } catch {
+      toast.error(MESSAGES.task.deleteManyError);
+    }
   }, []);
 
   const toggleTask = useCallback(
     async (taskId: string, currentValue: boolean) => {
-      await toggleTaskCompleted(taskId, currentValue);
+      try {
+        await toggleTaskCompleted(taskId, currentValue);
+      } catch {
+        toast.error(MESSAGES.task.toggleError);
+      }
     },
     []
   );
@@ -97,6 +129,7 @@ export function useTasks(userId: string): UseTasksResult {
     addTask,
     editTask,
     removeTask,
+    removeMany,
     toggleTask,
   };
 }

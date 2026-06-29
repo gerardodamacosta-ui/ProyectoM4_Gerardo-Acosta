@@ -26,16 +26,13 @@ export function Tasks() {
     addTask,
     editTask,
     removeTask,
+    removeMany,
     toggleTask,
   } = useTasks(user!.uid);
 
   // Conteos sobre el array completo (sin filtro) para los counters y el email
   const pending = tasks.filter((t) => !t.completed).length;
   const completed = tasks.filter((t) => t.completed).length;
-
-  async function removeMany(ids: string[]) {
-    await Promise.all(ids.map(removeTask));
-  }
 
   return (
     <>
