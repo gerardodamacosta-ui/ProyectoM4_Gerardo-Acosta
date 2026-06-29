@@ -33,6 +33,7 @@ const PRIORITY_CLASS: Record<NonNullable<Task["priority"]>, string> = {
 interface TaskItemProps {
   task: Task;
   isSelected: boolean;
+  isSelectionMode: boolean;
   onSelect: (taskId: string) => void;
   onToggle: (taskId: string, currentValue: boolean) => Promise<void>;
   onEdit: (taskId: string, values: TaskFormValues) => Promise<void>;
@@ -42,6 +43,7 @@ interface TaskItemProps {
 export function TaskItem({
   task,
   isSelected,
+  isSelectionMode,
   onSelect,
   onToggle,
   onEdit,
@@ -85,22 +87,27 @@ export function TaskItem({
     );
   }
 
+  const itemClass = [
+    styles.item,
+    task.completed ? styles.completed : "",
+    isSelectionMode && isSelected ? styles.itemSelected : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <li className={`${styles.item} ${task.completed ? styles.completed : ""}`}>
+    <li
+      className={itemClass}
+      onClick={isSelectionMode ? () => onSelect(task.id) : undefined}
+      style={isSelectionMode ? { cursor: "pointer" } : undefined}
+    >
       <input
         type="checkbox"
         className={styles.checkToggle}
         checked={task.completed}
+        onClick={(e) => e.stopPropagation()}
         onChange={() => onToggle(task.id, task.completed)}
         aria-label={`Marcar "${task.title}" como ${task.completed ? "pendiente" : "completada"}`}
-      />
-
-      <input
-        type="checkbox"
-        className={styles.checkSelect}
-        checked={isSelected}
-        onChange={() => onSelect(task.id)}
-        aria-label={`Seleccionar "${task.title}"`}
       />
 
       <div className={styles.content}>
@@ -125,14 +132,14 @@ export function TaskItem({
       <div className={styles.actions}>
         <button
           type="button"
-          onClick={() => setEditing(true)}
+          onClick={(e) => { e.stopPropagation(); setEditing(true); }}
           className={styles.editBtn}
         >
           Editar
         </button>
         <button
           type="button"
-          onClick={handleDelete}
+          onClick={(e) => { e.stopPropagation(); void handleDelete(); }}
           disabled={deleting}
           className={styles.deleteBtn}
         >

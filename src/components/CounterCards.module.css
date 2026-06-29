@@ -42,5 +42,5 @@
 .label {
   font-size: 12px;
   letter-spacing: 2px;
-  color: var(--text-secondary);
+  color: var(--text);
 }

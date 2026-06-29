@@ -7,7 +7,7 @@
   border: 1px solid var(--border);
   border-left: 3px solid var(--accent);
   border-radius: 6px;
-  transition: border-left-color 0.2s, opacity 0.2s;
+  transition: border-left-color 0.2s, border-color 0.2s, background 0.2s, opacity 0.2s;
 }
 
 .item.completed {
@@ -15,21 +15,17 @@
   opacity: 0.45;
 }
 
+.item.itemSelected {
+  background: var(--selection-bg);
+  border-left-color: var(--color-delete);
+  border-color: var(--selection-border);
+}
+
 /* Checkbox de completado — acento */
 .checkToggle {
   margin-top: 2px;
   flex-shrink: 0;
   accent-color: var(--accent);
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-/* Checkbox de selección — acento secundario */
-.checkSelect {
-  margin-top: 2px;
-  flex-shrink: 0;
-  accent-color: var(--accent-secondary);
   width: 16px;
   height: 16px;
   cursor: pointer;
@@ -141,6 +137,16 @@
 .deleteBtn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+:global(:root:not(.light)) .editBtn {
+  border-color: #3a5a3a;
+  color: #8aaa8a;
+}
+
+:global(:root:not(.light)) .deleteBtn {
+  border-color: #3a5a3a;
+  color: #8aaa8a;
 }
 
 /* Modo edición inline: anula el margen lateral del TaskForm */

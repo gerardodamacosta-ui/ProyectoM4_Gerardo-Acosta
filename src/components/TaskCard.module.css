@@ -7,12 +7,18 @@
   border: 1px solid var(--border);
   border-top: 3px solid var(--accent);
   border-radius: 6px;
-  transition: border-top-color 0.2s, opacity 0.2s;
+  transition: border-top-color 0.2s, border-color 0.2s, background 0.2s, opacity 0.2s;
 }
 
 .card.completed {
   border-top-color: var(--color-completed-border);
   opacity: 0.45;
+}
+
+.card.cardSelected {
+  background: var(--selection-bg);
+  border-top-color: var(--color-delete);
+  border-color: var(--selection-border);
 }
 
 .cardHeader {
@@ -23,14 +29,6 @@
 
 .checkToggle {
   accent-color: var(--accent);
-  width: 15px;
-  height: 15px;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.checkSelect {
-  accent-color: var(--accent-secondary);
   width: 15px;
   height: 15px;
   cursor: pointer;
@@ -130,6 +128,16 @@
 .deleteBtn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+:global(:root:not(.light)) .editBtn {
+  border-color: #3a5a3a;
+  color: #8aaa8a;
+}
+
+:global(:root:not(.light)) .deleteBtn {
+  border-color: #3a5a3a;
+  color: #8aaa8a;
 }
 
 .editContainer :global(.form) {

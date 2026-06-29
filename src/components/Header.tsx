@@ -46,7 +46,7 @@ export function Header({
           Mate<span className={styles.logoAccent}>Code</span>
         </div>
 
-        <span className={styles.email}>{userEmail}</span>
+        <span className={styles.email}>Agenda tus tareas!</span>
 
         <div className={styles.actions}>
           <button

@@ -87,6 +87,36 @@
   color: #fff;
 }
 
+.selectModeBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 11px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.selectModeBtn:hover {
+  border-color: var(--pill-border);
+  color: var(--pill-border);
+}
+
+.cancelBtn {
+  background: none;
+  border: 1px solid var(--text-muted);
+  color: var(--text-muted);
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 11px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.cancelBtn:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-secondary);
+}
+
 /* Estados generales */
 .message {
   font-size: 13px;

@@ -22,8 +22,9 @@
 }
 
 .email {
-  font-size: 12px;
-  color: var(--header-text-secondary);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--header-text);
   letter-spacing: 1px;
 }
 

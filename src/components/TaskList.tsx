@@ -42,6 +42,7 @@ export function TaskList({
   onDeleteMany,
 }: TaskListProps) {
   const [view, setView] = useState<ViewMode>("list");
+  const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [showModal, setShowModal] = useState(false);
 
@@ -49,6 +50,15 @@ export function TaskList({
   useEffect(() => {
     setSelectedIds(new Set());
   }, [filter]);
+
+  function enterSelectionMode() {
+    setIsSelectionMode(true);
+  }
+
+  function cancelSelectionMode() {
+    setIsSelectionMode(false);
+    setSelectedIds(new Set());
+  }
 
   const allSelected = tasks.length > 0 && selectedIds.size === tasks.length;
   const deleteCount = selectedIds.size;
@@ -117,7 +127,17 @@ export function TaskList({
           </button>
         </div>
 
-        {hasTasks && (
+        {hasTasks && !isSelectionMode && (
+          <button
+            type="button"
+            onClick={enterSelectionMode}
+            className={styles.selectModeBtn}
+          >
+            Seleccionar
+          </button>
+        )}
+
+        {hasTasks && isSelectionMode && (
           <div className={styles.bulkActions}>
             <button
               type="button"
@@ -133,6 +153,13 @@ export function TaskList({
               className={`${styles.deleteBtn} ${deleteCount > 0 ? styles.deleteBtnActive : ""}`}
             >
               Borrar{deleteCount > 0 ? ` (${deleteCount})` : ""}
+            </button>
+            <button
+              type="button"
+              onClick={cancelSelectionMode}
+              className={styles.cancelBtn}
+            >
+              Cancelar
             </button>
           </div>
         )}
@@ -179,6 +206,7 @@ export function TaskList({
                     key={task.id}
                     task={task}
                     isSelected={selectedIds.has(task.id)}
+                    isSelectionMode={isSelectionMode}
                     onSelect={toggleSelect}
                     onToggle={onToggle}
                     onEdit={onEdit}
@@ -220,6 +248,7 @@ export function TaskList({
                     key={task.id}
                     task={task}
                     isSelected={selectedIds.has(task.id)}
+                    isSelectionMode={isSelectionMode}
                     onSelect={toggleSelect}
                     onToggle={onToggle}
                     onEdit={onEdit}

@@ -31,6 +31,7 @@ const PRIORITY_CLASS: Record<NonNullable<Task["priority"]>, string> = {
 interface TaskCardProps {
   task: Task;
   isSelected: boolean;
+  isSelectionMode: boolean;
   onSelect: (taskId: string) => void;
   onToggle: (taskId: string, currentValue: boolean) => Promise<void>;
   onEdit: (taskId: string, values: TaskFormValues) => Promise<void>;
@@ -40,6 +41,7 @@ interface TaskCardProps {
 export function TaskCard({
   task,
   isSelected,
+  isSelectionMode,
   onSelect,
   onToggle,
   onEdit,
@@ -83,22 +85,28 @@ export function TaskCard({
     );
   }
 
+  const cardClass = [
+    styles.card,
+    task.completed ? styles.completed : "",
+    isSelectionMode && isSelected ? styles.cardSelected : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div className={`${styles.card} ${task.completed ? styles.completed : ""}`}>
+    <div
+      className={cardClass}
+      onClick={isSelectionMode ? () => onSelect(task.id) : undefined}
+      style={isSelectionMode ? { cursor: "pointer" } : undefined}
+    >
       <div className={styles.cardHeader}>
         <input
           type="checkbox"
           className={styles.checkToggle}
           checked={task.completed}
+          onClick={(e) => e.stopPropagation()}
           onChange={() => onToggle(task.id, task.completed)}
           aria-label={`Marcar "${task.title}" como ${task.completed ? "pendiente" : "completada"}`}
-        />
-        <input
-          type="checkbox"
-          className={styles.checkSelect}
-          checked={isSelected}
-          onChange={() => onSelect(task.id)}
-          aria-label={`Seleccionar "${task.title}"`}
         />
         {task.priority && (
           <span className={`${styles.badge} ${PRIORITY_CLASS[task.priority]}`}>
@@ -122,14 +130,14 @@ export function TaskCard({
       <div className={styles.actions}>
         <button
           type="button"
-          onClick={() => setEditing(true)}
+          onClick={(e) => { e.stopPropagation(); setEditing(true); }}
           className={styles.editBtn}
         >
           Editar
         </button>
         <button
           type="button"
-          onClick={handleDelete}
+          onClick={(e) => { e.stopPropagation(); void handleDelete(); }}
           disabled={deleting}
           className={styles.deleteBtn}
         >

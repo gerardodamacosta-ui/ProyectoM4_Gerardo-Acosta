@@ -61,6 +61,10 @@
   --input-border: #1a2a1a;
   --input-focus-border: #39ff14;
 
+  /* Selección de card */
+  --selection-bg: rgba(255, 68, 68, 0.09);
+  --selection-border: rgba(255, 68, 68, 0.35);
+
   /* Tipografía */
   --font: 'Courier New', Courier, monospace;
 }
@@ -107,6 +111,10 @@
 
   --input-bg: #f5effe;
   --input-border: #a78bfa;
+
+  /* Selección de card */
+  --selection-bg: rgba(220, 38, 38, 0.08);
+  --selection-border: rgba(220, 38, 38, 0.30);
   --input-focus-border: #7c3aed;
 }
 
