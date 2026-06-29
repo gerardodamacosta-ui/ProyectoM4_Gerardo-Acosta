@@ -9,6 +9,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import type { UserCredential } from "firebase/auth";
 import { auth } from "./firebase";
@@ -41,4 +42,8 @@ export function loginWithGoogle(): Promise<UserCredential> {
 
 export function logout(): Promise<void> {
   return signOut(auth);
+}
+
+export function sendPasswordReset(email: string): Promise<void> {
+  return sendPasswordResetEmail(auth, email);
 }

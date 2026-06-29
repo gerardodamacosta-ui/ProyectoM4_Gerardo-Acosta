@@ -1,12 +1,13 @@
 // src/routes/AppRouter.tsx
 // Definición central de rutas de la app.
-// Públicas (envueltas en PublicOnlyRoute): /login, /register
+// Públicas (envueltas en PublicOnlyRoute): /login, /register, /forgot-password
 // Protegida (envuelta en ProtectedRoute): /tasks
 // /  y  cualquier ruta desconocida → /tasks (y si no hay sesión, ProtectedRoute rebota a /login).
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
+import { ForgotPassword } from "../pages/ForgotPassword";
 import { Tasks } from "../pages/Tasks";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { PublicOnlyRoute } from "./PublicOnlyRoute";
@@ -28,6 +29,14 @@ export function AppRouter() {
           element={
             <PublicOnlyRoute>
               <Register />
+            </PublicOnlyRoute>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <PublicOnlyRoute>
+              <ForgotPassword />
             </PublicOnlyRoute>
           }
         />
