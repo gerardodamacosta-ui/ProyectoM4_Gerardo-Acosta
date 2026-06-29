@@ -1,0 +1,336 @@
+/* src/pages/Login.module.css */
+/* Diseño Variación 02 (Minimal) — tema fijo claro.
+   Todos los colores están hardcodeados: esta pantalla no participa del sistema
+   de tema oscuro/claro del resto de la app. */
+
+/* ─── Página ─────────────────────────────────────────────────── */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3effe;
+  font-family: "Courier New", Courier, monospace;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── Decoración de fondo ─────────────────────────────────────── */
+
+/* Orb superior centro */
+.orb1 {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(192, 132, 252, 0.18), transparent 65%);
+  pointer-events: none;
+}
+
+/* Orb inferior derecha */
+.orb2 {
+  position: absolute;
+  bottom: -60px;
+  right: -60px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.1), transparent 65%);
+  pointer-events: none;
+}
+
+/* Grid de puntos — esquina superior derecha, 5×4 dots */
+.dotGrid {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  width: 96px;
+  height: 72px;
+  background-image: radial-gradient(circle, rgba(167, 139, 250, 0.35) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  background-position: 3px 3px;
+  pointer-events: none;
+}
+
+/* ─── Tarjeta central ─────────────────────────────────────────── */
+
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(124, 58, 237, 0.12);
+  padding: 48px 40px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px;
+  box-sizing: border-box;
+}
+
+/* ─── Marca ───────────────────────────────────────────────────── */
+
+.logoMark {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(145deg, #3b0764, #7c3aed);
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: "Courier New", Courier, monospace;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);
+  margin-bottom: 16px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.brand {
+  font-size: 38px;
+  font-weight: 700;
+  color: #2e1065;
+  margin: 0 0 6px;
+  font-family: "Courier New", Courier, monospace;
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  font-size: 14px;
+  color: #6d28d9;
+  margin: 0 0 32px;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* ─── Formulario ──────────────────────────────────────────────── */
+
+.form {
+  width: 100%;
+}
+
+.subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2e1065;
+  margin: 0 0 20px;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* ─── Inputs ──────────────────────────────────────────────────── */
+
+.inputGroup {
+  margin-bottom: 12px;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.input {
+  width: 100%;
+  padding: 14px 44px 14px 44px;
+  background: #ede9fe;
+  border: 1.5px solid transparent;
+  border-radius: 50px;
+  font-size: 14px;
+  font-family: "Courier New", Courier, monospace;
+  color: #2e1065;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input::placeholder {
+  color: #a78bfa;
+}
+
+.input:focus {
+  border-color: #a78bfa;
+}
+
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Botón mostrar/ocultar contraseña */
+.eyeBtn {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  line-height: 0;
+  color: #c084fc;
+}
+
+.eyeBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ─── Mensajes de error ───────────────────────────────────────── */
+
+.fieldError {
+  font-size: 12px;
+  color: #dc2626;
+  margin: 4px 0 0 16px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.formError {
+  font-size: 13px;
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin-bottom: 12px;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* ─── Links y acciones secundarias ───────────────────────────── */
+
+.forgotRow {
+  display: flex;
+  justify-content: flex-end;
+  margin: 4px 0 20px;
+}
+
+.forgotLink {
+  font-size: 12px;
+  color: #7c3aed;
+  text-decoration: none;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.forgotLink:hover {
+  text-decoration: underline;
+}
+
+/* ─── Botón principal ─────────────────────────────────────────── */
+
+.primaryBtn {
+  width: 100%;
+  padding: 14px 0;
+  background: #2e1065;
+  color: #e9d5ff;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(46, 16, 101, 0.4);
+  transition: opacity 0.15s, box-shadow 0.15s;
+  margin-bottom: 20px;
+}
+
+.primaryBtn:hover:not(:disabled) {
+  opacity: 0.92;
+  box-shadow: 0 6px 20px rgba(46, 16, 101, 0.5);
+}
+
+.primaryBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ─── Separador ───────────────────────────────────────────────── */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ddd3fe;
+}
+
+.dividerText {
+  font-size: 12px;
+  color: #a78bfa;
+  white-space: nowrap;
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* ─── Botón Google ────────────────────────────────────────────── */
+
+.googleBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 0;
+  background: #ffffff;
+  border: 1.5px solid #ddd3fe;
+  border-radius: 50px;
+  font-size: 14px;
+  font-family: "Courier New", Courier, monospace;
+  color: #2e1065;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.googleBtn:hover:not(:disabled) {
+  border-color: #a78bfa;
+  box-shadow: 0 2px 8px rgba(167, 139, 250, 0.2);
+}
+
+.googleBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ─── Link de registro ────────────────────────────────────────── */
+
+.registerRow {
+  margin-top: 24px;
+  margin-bottom: 0;
+  font-size: 13px;
+  color: #6d28d9;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.registerLink {
+  color: #7c3aed;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.registerLink:hover {
+  text-decoration: underline;
+}
