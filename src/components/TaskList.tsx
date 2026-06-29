@@ -3,7 +3,7 @@
 // Gestiona selección múltiple y borrado en lote. Delega cada ítem a
 // TaskItem (lista) o TaskCard (solapa).
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { TaskItem } from "./TaskItem";
 import { TaskCard } from "./TaskCard";
 import { ConfirmModal } from "./ConfirmModal";
@@ -45,11 +45,24 @@ export function TaskList({
   const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [showModal, setShowModal] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   // Limpia la selección al cambiar el filtro activo
   useEffect(() => {
     setSelectedIds(new Set());
   }, [filter]);
+
+  // Cierra el modo selección al hacer click fuera del contenedor de tareas
+  useEffect(() => {
+    if (!isSelectionMode) return;
+    function handleOutsideClick(e: MouseEvent) {
+      if (sectionRef.current && !sectionRef.current.contains(e.target as Node)) {
+        cancelSelectionMode();
+      }
+    }
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [isSelectionMode]);
 
   function enterSelectionMode() {
     setIsSelectionMode(true);
@@ -107,7 +120,7 @@ export function TaskList({
       : `No hay tareas ${filter === "pending" ? "pendientes" : "completadas"}.`;
 
   return (
-    <section className={styles.section}>
+    <section className={styles.section} ref={sectionRef}>
       {/* Barra superior: toggle de vista + acciones de selección */}
       <div className={styles.topBar}>
         <div className={styles.viewToggle}>
