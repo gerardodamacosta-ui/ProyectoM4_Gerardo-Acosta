@@ -26,26 +26,26 @@ export function InstructionsModal({ onClose }: InstructionsModalProps) {
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>Crear tarea</h3>
             <p className={styles.sectionText}>
-              Completá el formulario superior con título, descripción,
-              prioridad y fecha de vencimiento opcionales. Hacé click en
-              "+ Crear tarea" para guardarla.
+              Completá el formulario con título y descripción. Podés agregar
+              prioridad (Alta, Media o Baja) y fecha de vencimiento como campos
+              opcionales. Hacé click en "+ Crear tarea" para guardarla.
             </p>
           </section>
 
           <section className={styles.section}>
-            <h3 className={styles.sectionTitle}>Filtrar y vistas</h3>
+            <h3 className={styles.sectionTitle}>Vistas y filtros</h3>
             <p className={styles.sectionText}>
-              Filtrá por Todas / Pendientes / Completadas con los botones del
-              contenedor. Alternará entre Vista Lista y Solapa con el toggle
-              superior izquierdo.
+              Alterná entre Vista Lista y Solapa con el toggle superior izquierdo
+              del contenedor. Filtrá tus tareas por Todas / Pendientes /
+              Completadas con los botones de la barra.
             </p>
           </section>
 
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>Completar una tarea</h3>
             <p className={styles.sectionText}>
-              El checkbox izquierdo de cada tarea la marca como completada.
-              Las tareas completadas se muestran tachadas y con menor opacidad.
+              El checkbox de cada tarea la marca como completada. Las tareas
+              completadas se muestran tachadas y con menor opacidad.
             </p>
           </section>
 
@@ -60,17 +60,37 @@ export function InstructionsModal({ onClose }: InstructionsModalProps) {
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>Selección múltiple</h3>
             <p className={styles.sectionText}>
-              Usá "Seleccionar todos" y el botón "Borrar (N)" para eliminar
-              varias tareas a la vez. Si la acción dejaría la vista vacía,
-              aparece un modal de confirmación.
+              Hacé click en "Seleccionar" para activar el modo selección. Luego
+              clickeá sobre las tarjetas para seleccionarlas o deseleccionarlas.
+              Usá "Seleccionar todos" para marcarlas todas a la vez y "Borrar (N)"
+              para eliminarlas. Hacé click fuera del área de tareas o en
+              "Cancelar" para salir del modo sin borrar nada.
+            </p>
+          </section>
+
+          <section className={styles.section}>
+            <h3 className={styles.sectionTitle}>Notificaciones</h3>
+            <p className={styles.sectionText}>
+              Cada acción importante (crear, editar, eliminar, enviar email)
+              muestra una notificación breve en la parte superior de la pantalla
+              confirmando el resultado o informando un error.
             </p>
           </section>
 
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>Resumen por email</h3>
             <p className={styles.sectionText}>
-              El botón al pie de la página envía un resumen de tus tareas
-              pendientes y completadas a tu dirección de email.
+              El botón "✉ Enviar resumen" en el encabezado envía un resumen de
+              tus tareas pendientes y completadas a tu dirección de email.
+            </p>
+          </section>
+
+          <section className={styles.section}>
+            <h3 className={styles.sectionTitle}>Tema claro / oscuro</h3>
+            <p className={styles.sectionText}>
+              Usá el botón ☀ / 🌙 en el encabezado para alternar entre el tema
+              oscuro (verde neon) y el tema claro (violeta). La preferencia se
+              guarda automáticamente.
             </p>
           </section>
         </div>
