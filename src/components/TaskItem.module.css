@@ -115,8 +115,8 @@
 }
 
 .editBtn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--pill-border);
+  color: var(--pill-border);
 }
 
 .deleteBtn {
