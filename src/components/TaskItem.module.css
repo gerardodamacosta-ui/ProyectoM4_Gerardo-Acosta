@@ -104,6 +104,11 @@
   flex-shrink: 0;
 }
 
+/* El ícono Tabler se oculta en desktop, solo visible en mobile */
+.btnIcon {
+  display: none;
+}
+
 .editBtn {
   background: none;
   border: 1px solid var(--border);
@@ -157,6 +162,39 @@
 :global(:root:not(.light)) .deleteBtn:hover:not(:disabled) {
   border-color: var(--color-delete);
   color: var(--color-delete);
+}
+
+@media (max-width: 600px) {
+  .actions {
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  .editBtn,
+  .deleteBtn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+  }
+
+  .btnLabel {
+    display: none;
+  }
+
+  .btnIcon {
+    display: flex;
+    font-size: 18px;
+  }
+
+  /* visibility:hidden preserva el alto del ítem para evitar saltos al entrar
+     en modo selección — a diferencia de display:none no colapsa el espacio. */
+  .actionsHiddenOnMobile {
+    visibility: hidden;
+  }
 }
 
 /* Modo edición inline: anula el margen lateral del TaskForm */

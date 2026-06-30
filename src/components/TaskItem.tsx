@@ -4,6 +4,8 @@
 
 import { useState } from "react";
 import { TaskForm } from "./TaskForm";
+import { useIsMobile } from "../hooks/useIsMobile";
+import { useSwipeToAction } from "../hooks/useSwipeToAction";
 import type { Task, TaskFormValues } from "../types";
 import type { Timestamp } from "firebase/firestore";
 import styles from "./TaskItem.module.css";
@@ -51,6 +53,7 @@ export function TaskItem({
 }: TaskItemProps) {
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const isMobile = useIsMobile();
 
   const dueDateString = task.dueDate ? toLocalDateString(task.dueDate) : undefined;
 
@@ -74,6 +77,12 @@ export function TaskItem({
       setDeleting(false);
     }
   }
+
+  const { handlers: swipeHandlers, offset: swipeOffset } = useSwipeToAction({
+    onSwipeRight: () => onToggle(task.id, task.completed),
+    onSwipeLeft: () => void handleDelete(),
+    disabled: !isMobile || isSelectionMode || editing,
+  });
 
   if (editing) {
     return (
@@ -99,7 +108,12 @@ export function TaskItem({
     <li
       className={itemClass}
       onClick={isSelectionMode ? () => onSelect(task.id) : undefined}
-      style={isSelectionMode ? { cursor: "pointer" } : undefined}
+      style={{
+        cursor: isSelectionMode ? "pointer" : undefined,
+        transform: swipeOffset ? `translateX(${swipeOffset}px)` : undefined,
+        touchAction: "pan-y",
+      }}
+      {...swipeHandlers}
     >
       <input
         type="checkbox"
@@ -129,13 +143,14 @@ export function TaskItem({
         </div>
       </div>
 
-      <div className={styles.actions}>
+      <div className={`${styles.actions} ${isSelectionMode ? styles.actionsHiddenOnMobile : ""}`}>
         <button
           type="button"
           onClick={(e) => { e.stopPropagation(); setEditing(true); }}
           className={styles.editBtn}
         >
-          Editar
+          <span className={styles.btnLabel}>Editar</span>
+          <i className={`ti ti-pencil ${styles.btnIcon}`} aria-hidden="true" />
         </button>
         <button
           type="button"
@@ -143,7 +158,8 @@ export function TaskItem({
           disabled={deleting}
           className={styles.deleteBtn}
         >
-          {deleting ? "…" : "Eliminar"}
+          <span className={styles.btnLabel}>{deleting ? "…" : "Eliminar"}</span>
+          <i className={`ti ti-trash ${styles.btnIcon}`} aria-hidden="true" />
         </button>
       </div>
     </li>
