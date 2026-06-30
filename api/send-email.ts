@@ -55,7 +55,7 @@ function buildHtmlEmail(summary: SendEmailBody["summary"]): string {
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f3effe;padding:40px 16px;">
     <tr>
       <td align="center">
-        <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="background-color:#ede9fe;border-radius:12px;overflow:hidden;">
+        <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="background-color:#ede9fe;border-radius:12px;overflow:hidden;border:1px solid #3b0764;">
           <tr>
             <td align="center" bgcolor="#3b0764" style="background:linear-gradient(145deg,#3b0764,#7c3aed);padding:32px 24px;">
               <span style="font-family:'Courier New',Courier,monospace;font-size:22px;font-weight:bold;color:#ffffff;">&lt;/&gt;</span>
@@ -64,7 +64,7 @@ function buildHtmlEmail(summary: SendEmailBody["summary"]): string {
             </td>
           </tr>
           <tr>
-            <td style="padding:32px 32px 24px;">
+            <td style="padding:32px 32px 40px;">
               <p style="font-family:'Courier New',Courier,monospace;font-size:16px;color:#1e1b4b;margin:0 0 8px 0;">Hola,</p>
               <p style="font-family:'Courier New',Courier,monospace;font-size:14px;color:#1e1b4b;margin:0 0 28px 0;">Este es el resumen de tus tareas en MateCode:</p>
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
@@ -90,14 +90,9 @@ function buildHtmlEmail(summary: SendEmailBody["summary"]): string {
             </td>
           </tr>
           <tr>
-            <td align="center" style="padding:16px 32px 8px;border-top:1px solid #c4b5fd;">
-              <p style="font-family:'Courier New',Courier,monospace;font-size:12px;color:#6d28d9;margin:0;">MateCode Task Manager</p>
-            </td>
-          </tr>
-          <tr>
-            <td align="center" style="padding:0 32px 28px;">
-              <p style="font-family:'Courier New',Courier,monospace;font-size:12px;color:#6d28d9;letter-spacing:2px;margin:0 0 2px 0;">Desarrollador</p>
-              <p style="font-family:'Courier New',Courier,monospace;font-size:15px;color:#7c3aed;letter-spacing:1.5px;margin:0;">Gerardo Acosta</p>
+            <td align="center" bgcolor="#3b0764" style="background-color:#3b0764;padding:24px 32px;">
+              <p style="font-family:'Courier New',Courier,monospace;font-size:12px;color:#c4b5fd;letter-spacing:2px;margin:0 0 2px 0;">Desarrollador</p>
+              <p style="font-family:'Courier New',Courier,monospace;font-size:15px;color:#e9d5ff;letter-spacing:1.5px;margin:0;">Gerardo Acosta</p>
             </td>
           </tr>
         </table>
