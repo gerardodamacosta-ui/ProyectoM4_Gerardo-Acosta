@@ -44,6 +44,64 @@ function validateBody(body: unknown): string | null {
   return null;
 }
 
+function buildHtmlEmail(summary: SendEmailBody["summary"]): string {
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Resumen de tareas — MateCode</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f3effe;font-family:'Courier New',Courier,monospace;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f3effe;padding:40px 16px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="background-color:#ede9fe;border-radius:12px;overflow:hidden;">
+          <tr>
+            <td align="center" bgcolor="#3b0764" style="background:linear-gradient(145deg,#3b0764,#7c3aed);padding:32px 24px;">
+              <span style="font-family:'Courier New',Courier,monospace;font-size:22px;font-weight:bold;color:#ffffff;">&lt;/&gt;</span>
+              <br>
+              <span style="font-family:'Courier New',Courier,monospace;font-size:28px;font-weight:bold;color:#ffffff;letter-spacing:2px;">MateCode</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:32px 32px 24px;">
+              <p style="font-family:'Courier New',Courier,monospace;font-size:16px;color:#1e1b4b;margin:0 0 8px 0;">Hola,</p>
+              <p style="font-family:'Courier New',Courier,monospace;font-size:14px;color:#1e1b4b;margin:0 0 28px 0;">Este es el resumen de tus tareas en MateCode:</p>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+                <tr>
+                  <td width="48%" align="center" style="background-color:#ddd6fe;border-radius:8px;padding:20px 16px;">
+                    <span style="font-family:'Courier New',Courier,monospace;font-size:36px;font-weight:bold;color:#7c3aed;display:block;">${summary.pending}</span>
+                    <span style="font-family:'Courier New',Courier,monospace;font-size:11px;color:#6d28d9;text-transform:uppercase;letter-spacing:1px;">Pendientes</span>
+                  </td>
+                  <td width="4%"></td>
+                  <td width="48%" align="center" style="background-color:#ddd6fe;border-radius:8px;padding:20px 16px;">
+                    <span style="font-family:'Courier New',Courier,monospace;font-size:36px;font-weight:bold;color:#7c3aed;display:block;">${summary.completed}</span>
+                    <span style="font-family:'Courier New',Courier,monospace;font-size:11px;color:#6d28d9;text-transform:uppercase;letter-spacing:1px;">Completadas</span>
+                  </td>
+                </tr>
+              </table>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td align="center">
+                    <a href="https://proyecto-m4-gerardo-acosta.vercel.app" style="display:inline-block;background-color:#2e1065;color:#e9d5ff;font-family:'Courier New',Courier,monospace;font-size:14px;font-weight:bold;text-decoration:none;padding:12px 36px;border-radius:999px;letter-spacing:1px;">Ir a la app</a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding:16px 32px 32px;">
+              <p style="font-family:'Courier New',Courier,monospace;font-size:12px;color:#6d28d9;margin:0;">MateCode Task Manager</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse
@@ -85,7 +143,10 @@ export default async function handler(
         Destination: { ToAddresses: [to] },
         Message: {
           Subject: { Data: "Resumen de tus tareas — MateCode", Charset: "UTF-8" },
-          Body: { Text: { Data: emailBody, Charset: "UTF-8" } },
+          Body: {
+            Text: { Data: emailBody, Charset: "UTF-8" },
+            Html: { Data: buildHtmlEmail(summary), Charset: "UTF-8" },
+          },
         },
       })
     );
