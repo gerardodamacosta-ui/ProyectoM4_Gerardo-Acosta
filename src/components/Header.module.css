@@ -191,6 +191,12 @@
     display: none;
   }
 
+  /* Sin .email en el DOM, el auto-placement de grid pone .actions en la
+     columna 2 (auto, central) en lugar de la 3 — forzamos la posición correcta. */
+  .actions {
+    grid-column: 3;
+  }
+
   .desktopSummary {
     display: none;
   }
