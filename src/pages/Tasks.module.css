@@ -1,0 +1,9 @@
+.desktopFormWrapper {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .desktopFormWrapper {
+    display: none;
+  }
+}
