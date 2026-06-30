@@ -44,3 +44,34 @@
   letter-spacing: 2px;
   color: var(--text);
 }
+
+@media (max-width: 600px) {
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 12px;
+  }
+
+  .card {
+    flex: 1 1 100px;
+    min-width: 100px;
+    padding: 12px 8px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .cardActive {
+    border-color: var(--accent);
+    background: var(--bg-card-hover, var(--bg-card));
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  .number {
+    font-size: 26px;
+  }
+
+  .label {
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+}

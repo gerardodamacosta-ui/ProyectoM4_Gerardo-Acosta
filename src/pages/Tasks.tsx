@@ -11,6 +11,8 @@ import { Footer } from "../components/Footer";
 import { CounterCards } from "../components/CounterCards";
 import { TaskForm } from "../components/TaskForm";
 import { TaskList } from "../components/TaskList";
+import { MobileTaskFab } from "../components/MobileTaskFab";
+import styles from "./Tasks.module.css";
 
 export function Tasks() {
   const { user } = useAuth();
@@ -50,9 +52,14 @@ export function Tasks() {
         total={tasks.length}
         pending={pending}
         completed={completed}
+        filter={filter}
+        onFilterChange={setFilter}
       />
 
-      <TaskForm onSubmit={addTask} />
+      <div className={styles.desktopFormWrapper}>
+        <TaskForm onSubmit={addTask} />
+      </div>
+      <MobileTaskFab onSubmit={addTask} />
 
       <TaskList
         tasks={filteredTasks}
