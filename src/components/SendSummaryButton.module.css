@@ -28,3 +28,29 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* Variante "menuItem": fila dentro del dropdown del menú hamburguesa.
+   Calcada de .dropdownBtn de Header.module.css (los módulos CSS no se
+   comparten entre componentes, así que se replica el estilo a propósito). */
+.menuItemBtn {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--text);
+  letter-spacing: 1px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.menuItemBtn:hover:not(:disabled) {
+  background: var(--bg);
+  color: var(--accent);
+}
+
+.menuItemBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -65,7 +65,9 @@ export function Header({
             {theme === "dark" ? "☀" : "🌙"}
           </button>
 
-          <SendSummaryButton to={to} pending={pending} completed={completed} />
+          <div className={styles.desktopSummary}>
+            <SendSummaryButton to={to} pending={pending} completed={completed} />
+          </div>
 
           <div className={styles.menuContainer} ref={menuRef}>
             <button
@@ -94,6 +96,15 @@ export function Header({
                 </div>
 
                 <div className={styles.divider} />
+
+                <div className={styles.mobileSummaryItem}>
+                  <SendSummaryButton
+                    to={to}
+                    pending={pending}
+                    completed={completed}
+                    variant="menuItem"
+                  />
+                </div>
 
                 <button
                   type="button"

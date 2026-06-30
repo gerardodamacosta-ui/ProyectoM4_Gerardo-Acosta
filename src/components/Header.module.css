@@ -174,3 +174,28 @@
   color: var(--color-delete);
   opacity: 0.85;
 }
+
+/* Wrapper del SendSummaryButton estándar (visible en desktop) */
+.desktopSummary {
+  display: flex;
+}
+
+/* Wrapper del SendSummaryButton variant="menuItem" dentro del dropdown
+   (oculto en desktop, donde ya existe el botón estándar) */
+.mobileSummaryItem {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .email {
+    display: none;
+  }
+
+  .desktopSummary {
+    display: none;
+  }
+
+  .mobileSummaryItem {
+    display: block;
+  }
+}
