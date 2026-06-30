@@ -45,7 +45,9 @@ export function TaskList({
   const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [showModal, setShowModal] = useState(false);
+  const [viewMenuOpen, setViewMenuOpen] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const viewMenuRef = useRef<HTMLDivElement>(null);
 
   // Limpia la selección al cambiar el filtro activo
   useEffect(() => {
@@ -63,6 +65,18 @@ export function TaskList({
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, [isSelectionMode]);
+
+  // Cierra el dropdown de vista (mobile) al hacer click fuera de él
+  useEffect(() => {
+    if (!viewMenuOpen) return;
+    function handleOutsideClick(e: MouseEvent) {
+      if (viewMenuRef.current && !viewMenuRef.current.contains(e.target as Node)) {
+        setViewMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [viewMenuOpen]);
 
   function enterSelectionMode() {
     setIsSelectionMode(true);
@@ -158,6 +172,83 @@ export function TaskList({
               className={styles.selectAllBtn}
             >
               {allSelected ? "Deseleccionar todos" : "Seleccionar todos"}
+            </button>
+            <button
+              type="button"
+              onClick={handleDeleteSelected}
+              disabled={deleteCount === 0}
+              className={`${styles.deleteBtn} ${deleteCount > 0 ? styles.deleteBtnActive : ""}`}
+            >
+              Borrar{deleteCount > 0 ? ` (${deleteCount})` : ""}
+            </button>
+            <button
+              type="button"
+              onClick={cancelSelectionMode}
+              className={styles.cancelBtn}
+            >
+              Cancelar
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Barra superior mobile: dropdown de vista + filtros compactos + selección */}
+      <div className={styles.mobileTopBar}>
+        <div className={styles.mobileViewMenuWrapper} ref={viewMenuRef}>
+          <button
+            type="button"
+            onClick={() => setViewMenuOpen((prev) => !prev)}
+            className={styles.mobileViewBtn}
+            aria-label="Cambiar vista"
+            aria-expanded={viewMenuOpen}
+          >
+            ⋯
+          </button>
+
+          {viewMenuOpen && (
+            <div className={styles.mobileViewMenu}>
+              <button
+                type="button"
+                onClick={() => {
+                  setView("list");
+                  setViewMenuOpen(false);
+                }}
+                className={`${styles.mobileViewMenuBtn} ${view === "list" ? styles.mobileViewMenuBtnActive : ""}`}
+              >
+                Lista
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setView("grid");
+                  setViewMenuOpen(false);
+                }}
+                className={`${styles.mobileViewMenuBtn} ${view === "grid" ? styles.mobileViewMenuBtnActive : ""}`}
+              >
+                Solapa
+              </button>
+            </div>
+          )}
+        </div>
+
+        {hasTasks && !isSelectionMode && (
+          <button
+            type="button"
+            onClick={enterSelectionMode}
+            className={styles.selectModeBtn}
+          >
+            Seleccionar
+          </button>
+        )}
+
+        {hasTasks && isSelectionMode && (
+          <div className={styles.mobileSelectionActions}>
+            <button
+              type="button"
+              onClick={toggleSelectAll}
+              className={styles.selectAllBtn}
+            >
+              Todos
             </button>
             <button
               type="button"

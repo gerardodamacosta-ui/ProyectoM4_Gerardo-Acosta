@@ -3,7 +3,7 @@
 // y lista vacía. TaskItem está mockeado para aislar TaskList del DOM de cada ítem.
 
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { TaskList } from "../src/components/TaskList";
 import type { Task, TaskFilter } from "../src/types";
@@ -126,12 +126,14 @@ describe("TaskList", () => {
     // Arrange + Act
     render(<TaskList {...BASE_PROPS} filter="pending" />);
 
-    // Assert
+    // Assert — se escopea al grupo de filtros desktop: el toolbar mobile
+    // (oculto vía CSS, que jsdom no evalúa) duplica los mismos botones.
+    const filterGroup = screen.getByRole("group", { name: "Filtrar tareas" });
     expect(
-      screen.getByRole("button", { name: /pendientes/i })
+      within(filterGroup).getByRole("button", { name: /pendientes/i })
     ).toHaveAttribute("aria-pressed", "true");
     expect(
-      screen.getByRole("button", { name: /todas/i })
+      within(filterGroup).getByRole("button", { name: /todas/i })
     ).toHaveAttribute("aria-pressed", "false");
   });
 
@@ -141,8 +143,9 @@ describe("TaskList", () => {
     const onFilterChange = vi.fn();
     render(<TaskList {...BASE_PROPS} onFilterChange={onFilterChange} />);
 
-    // Act
-    await user.click(screen.getByRole("button", { name: /completadas/i }));
+    // Act — se escopea al grupo de filtros desktop (ver comentario arriba)
+    const filterGroup = screen.getByRole("group", { name: "Filtrar tareas" });
+    await user.click(within(filterGroup).getByRole("button", { name: /completadas/i }));
 
     // Assert
     expect(onFilterChange).toHaveBeenCalledWith("completed");

@@ -193,9 +193,71 @@
   gap: 12px;
 }
 
+/* Barra superior mobile (oculta en desktop) */
+.mobileTopBar {
+  display: none;
+}
+
+.mobileViewMenuWrapper {
+  position: relative;
+}
+
+.mobileViewBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.mobileViewMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 100px;
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  overflow: hidden;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileViewMenuBtn {
+  padding: 10px 14px;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 11px;
+  color: var(--text);
+}
+
+.mobileViewMenuBtn:hover {
+  background: var(--bg);
+  color: var(--accent);
+}
+
+.mobileViewMenuBtnActive {
+  background: var(--bg);
+  color: var(--accent);
+}
+
+.mobileSelectionActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
 @media (max-width: 600px) {
   .section {
     padding: 0 12px;
+    flex: 1; /* expande para empujar el footer al fondo del viewport */
   }
 
   .grid {
@@ -203,7 +265,17 @@
   }
 
   .topBar {
-    flex-direction: column;
-    align-items: flex-start;
+    display: none;
+  }
+
+  .tabs {
+    display: none;
+  }
+
+  .mobileTopBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
   }
 }
