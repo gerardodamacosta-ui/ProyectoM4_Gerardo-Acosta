@@ -90,8 +90,14 @@ function buildHtmlEmail(summary: SendEmailBody["summary"]): string {
             </td>
           </tr>
           <tr>
-            <td align="center" style="padding:16px 32px 32px;">
+            <td align="center" style="padding:16px 32px 8px;border-top:1px solid #c4b5fd;">
               <p style="font-family:'Courier New',Courier,monospace;font-size:12px;color:#6d28d9;margin:0;">MateCode Task Manager</p>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding:0 32px 28px;">
+              <p style="font-family:'Courier New',Courier,monospace;font-size:12px;color:#6d28d9;letter-spacing:2px;margin:0 0 2px 0;">Desarrollador</p>
+              <p style="font-family:'Courier New',Courier,monospace;font-size:15px;color:#7c3aed;letter-spacing:1.5px;margin:0;">Gerardo Acosta</p>
             </td>
           </tr>
         </table>
