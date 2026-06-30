@@ -75,3 +75,23 @@
   background: var(--color-delete);
   color: #fff;
 }
+
+@media (max-width: 600px) {
+  .card {
+    width: min(360px, 92vw);
+    padding: 24px 20px;
+  }
+
+  .title {
+    font-size: 17px;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+
+  .cancelBtn,
+  .confirmBtn {
+    flex: 1 1 120px;
+  }
+}
