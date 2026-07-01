@@ -112,6 +112,7 @@ export function TaskForm({ onSubmit, initialValues, onCancel }: TaskFormProps) {
             id="dueDate"
             name="dueDate"
             type="date"
+            min={new Date().toISOString().split("T")[0]}
             value={values.dueDate ?? ""}
             onChange={handleChange}
             disabled={submitting}
