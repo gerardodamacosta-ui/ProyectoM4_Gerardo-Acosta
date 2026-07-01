@@ -19,18 +19,51 @@ Aplicación web de gestión de tareas desarrollada como Proyecto Integrador del 
 ## Funcionalidades
 
 - Registro y login con **email/password** y **Google**
+- Recuperación de contraseña por email (con opción de reenvío si no llegó)
 - Logout y sesión persistente (sobrevive recarga del navegador)
 - Rutas protegidas: las tareas son inaccesibles sin sesión activa
 - **CRUD completo de tareas:** crear, editar, eliminar y marcar como completada
 - **Campos opcionales:** prioridad (baja / media / alta) y fecha de vencimiento
 - **Filtros:** todas / pendientes / completadas
+- **Dos vistas:** Lista y Solapa
+- **Selección múltiple:** modo selección para eliminar varias tareas a la vez
+- **Soft-delete con Deshacer:** al eliminar, tenés 5 segundos para revertir la acción antes de que se confirme el borrado en Firestore
+- **Gestos táctiles (mobile):** deslizá una tarea a la derecha para completarla o a la izquierda para eliminarla. En modo selección, tocá cualquier tarea para marcarla para borrar.
 - Sincronización en tiempo real con `onSnapshot` — la UI se actualiza sin recargar
 - Cada usuario ve solo sus propias tareas (aislamiento por `userId`)
-- Envío de resumen de tareas por email (pendientes y completadas)
+- Envío de resumen personalizado de tareas por email (pendientes y completadas)
+- **Tema claro/oscuro** persistido en localStorage
+- **Diseño responsive** para mobile y tablets
 
 ---
 
 ## Decisiones de arquitectura
+
+### Estructura de carpetas
+
+```
+ProyectoM4_Gerardo-Acosta/
+├── src/
+│   ├── assets/         # Recursos estáticos
+│   ├── components/     # Componentes UI reutilizables
+│   ├── constants/      # Strings centralizados (messages.ts)
+│   ├── features/       # Lógica por dominio: auth/ (AuthContext, AuthProvider)
+│   ├── hooks/          # useAuth, useTasks, useTheme, useIsMobile, useSwipeToAction
+│   ├── pages/          # Login, Register, ForgotPassword, Tasks
+│   ├── routes/         # AppRouter, ProtectedRoute, PublicOnlyRoute
+│   ├── services/       # firebase.ts, firestoreService.ts, emailService.ts, authService.ts
+│   ├── styles/         # Variables CSS globales y tema
+│   ├── types/          # Interfaces compartidas (Task, TaskFormValues, etc.)
+│   ├── utils/          # Helpers: validaciones, formateo, errores Firebase
+│   ├── App.tsx
+│   └── main.tsx
+├── api/                # Vercel Functions: send-email.ts
+├── public/             # Estáticos públicos
+├── tests/              # Tests unitarios y de componentes
+├── firestore.rules     # Reglas de seguridad de Firestore
+├── firestore.indexes.json
+└── vercel.json         # Rewrite SPA + configuración de deploy
+```
 
 ### Separación de responsabilidades
 
@@ -150,29 +183,27 @@ En Vercel, cargar las mismas variables en **Settings → Environment Variables**
 
 ---
 
-## Uso de IA en el desarrollo
+## Integración de IA en el proceso de desarrollo
 
-Este proyecto fue desarrollado con asistencia de Claude Code (claude-opus-4-8 y claude-sonnet-4-6).
+Durante el desarrollo de MateCode adopté un workflow de dos instancias de IA con roles diferenciados: Claude (claude.ai) como arquitecto y asesor de decisiones, y Claude Code como implementador dentro del editor. Esta separación resultó clave para mantener la calidad del código sin perder velocidad.
 
-### Rol de la IA
+**Dónde la IA fue más efectiva:**
 
-La IA actuó como par técnico: consultaba el contexto del proyecto (CLAUDE.md), explicaba cada decisión antes de implementarla, y proponía opciones con trade-offs cuando había más de un camino posible. Todas las decisiones de diseño fueron revisadas y aprobadas explícitamente antes de que se escribiera código.
+- **Planificación y diseño:** antes de escribir una sola línea de código, Claude y yo definíamos el plan completo — decisiones de arquitectura, estructura de componentes, flujo de datos. Esto evitó refactorizaciones costosas a mitad del desarrollo.
+- **Toma de decisiones arquitectónicas:** desde la elección de patrones (Context API vs prop drilling, subcollection vs campo userId en Firestore) hasta trade-offs de CSS (grid vs flexbox en el header responsive), la IA funcionó como un segundo criterio técnico para validar o desafiar mis ideas.
+- **Debugging:** en errores de especificidad CSS, timing de Firebase, o conflictos entre gestos touch y eventos de click, la IA aceleró notablemente el diagnóstico al conectar síntomas con causas no evidentes.
+- **Boilerplate:** configuración de Vitest, estructura inicial de hooks, tipos de TypeScript repetitivos — tareas donde la IA eliminó fricción sin comprometer decisiones de diseño.
 
-### Decisiones que influyeron en el diseño final
+**Patrones y buenas prácticas adoptadas:**
 
-- **Estructura de Firestore como colección plana (`tasks/{taskId}` con campo `userId`)** en lugar de subcolecciones por usuario. Ventaja: queries más simples y reglas de seguridad uniformes. Decisión validada contra la rúbrica del proyecto vía NotebookLM.
+- **Separación de roles:** Claude (claude.ai) diseña, Claude Code implementa. Nunca le pedía a Claude Code que tomara decisiones de arquitectura, ni usaba claude.ai para escribir código directamente. Esta separación mantuvo la coherencia del proyecto.
+- **Plan cerrado antes de implementar:** ningún feature arrancaba sin un spec completo acordado. Esto redujo drásticamente los cambios de rumbo a mitad de implementación.
+- **Verificación visual antes de cada commit:** cada paso se verificaba en el navegador / localhost antes de commitear. Nunca se acumulaban cambios sin revisar. Esto permitió detectar regresiones de inmediato y mantener commits limpios.
 
-- **`vi.hoisted()` para mocks en Vitest.** La IA identificó que `vi.mock` se eleva antes de las declaraciones de variables, causando `ReferenceError`. La solución fue envolver las funciones mock en `vi.hoisted()` para que estuvieran disponibles en el momento correcto.
+**Limitaciones y fricciones:**
 
-- **`fireEvent.submit` en lugar de `userEvent.click` para el test de título vacío.** `userEvent.click` en el botón de submit activa la validación nativa HTML5 `required` en jsdom antes de llegar al handler de React. `fireEvent.submit` bypasea esa capa y permite testear la validación con `trim()` del handler.
+- **Pérdida de contexto en conversaciones largas:** en sesiones extensas la IA podía perder detalles de decisiones tomadas al principio. Se mitigó con un CLAUDE.md actualizado que funcionaba como fuente de verdad del proyecto.
+- **Ambigüedad en los pedidos:** cuando una instrucción era imprecisa, la IA asumía interpretaciones que no siempre coincidían con la intención real. La solución fue aprender a especificar con más detalle, incluyendo qué no debía tocarse (ej: "desktop intocable, solo cambios en @media (max-width: 600px)").
+- **Código correcto pero fuera de estilo:** ocasionalmente Claude Code generaba soluciones técnicamente válidas pero que no respetaban el estilo o las convenciones del proyecto. El CLAUDE.md con decisiones documentadas fue la herramienta principal para corregir esto.
 
-- **Endpoint en `/api/` en la raíz** (zero-config Vercel) en lugar de `/functions/api/`. Vercel detecta automáticamente la carpeta `api/` en la raíz y la convierte en funciones sin configuración adicional.
-
-- **Rewrite en `vercel.json` para SPA.** La IA identificó proactivamente que `BrowserRouter` requiere un fallback del servidor para que las recargas de página y los accesos directos a rutas no devuelvan 404.
-
-### Qué no delegué a la IA
-
-- La decisión de qué habilitar en Firebase Console (Authentication providers, región de Firestore).
-- La configuración de AWS SES (verificación de emails, credenciales IAM, región).
-- La revisión y aprobación de cada commit antes de ejecutarlo.
-- Las pruebas manuales del flujo completo en el navegador.
+La IA funcionó como una herramienta de aceleración, no de reemplazo del aprendizaje. Cada tecnología, patrón y decisión de diseño utilizada en el proyecto fue primero comprendida e iterada antes de ser implementada.
