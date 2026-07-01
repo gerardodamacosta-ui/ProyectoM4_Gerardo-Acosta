@@ -61,3 +61,8 @@
   margin: 0;
 }
 
+.mobileTag {
+  color: var(--accent);
+  font-weight: 600;
+}
+

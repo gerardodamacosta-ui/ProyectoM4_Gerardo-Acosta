@@ -4,6 +4,8 @@
 
 import styles from "./InstructionsModal.module.css";
 
+const M = () => <span className={styles.mobileTag}>En mobile,</span>;
+
 interface InstructionsModalProps {
   onClose: () => void;
 }
@@ -28,8 +30,8 @@ export function InstructionsModal({ onClose }: InstructionsModalProps) {
             <p className={styles.sectionText}>
               El único campo obligatorio es el título. Podés agregar descripción,
               prioridad (Alta, Media o Baja) y fecha de vencimiento como campos
-              opcionales. Hacé click en "+ Crear tarea" para guardarla. En
-              mobile, tocá el botón "+" fijo en la esquina inferior derecha para
+              opcionales. Hacé click en "+ Crear tarea" para guardarla.{" "}
+              <M /> tocá el botón "+" fijo en la esquina inferior derecha para
               abrir el formulario.
             </p>
           </section>
@@ -39,10 +41,10 @@ export function InstructionsModal({ onClose }: InstructionsModalProps) {
             <p className={styles.sectionText}>
               Alterná entre Vista Lista y Solapa con el toggle superior izquierdo
               del contenedor. Filtrá tus tareas por Todas / Pendientes /
-              Completadas con los botones de la barra. En mobile, el cambio de
-              vista está en el botón ⋯ de la barra superior, y los filtros se
-              aplican tocando los contadores (Total, Pendientes, Completadas) en
-              la parte superior de la pantalla.
+              Completadas con los botones de la barra.{" "}
+              <M /> el cambio de vista está en el botón ⋯ de la barra superior,
+              y los filtros se aplican tocando los contadores (Total, Pendientes,
+              Completadas) en la parte superior de la pantalla.
             </p>
           </section>
 
@@ -58,8 +60,8 @@ export function InstructionsModal({ onClose }: InstructionsModalProps) {
             <h3 className={styles.sectionTitle}>Editar y eliminar</h3>
             <p className={styles.sectionText}>
               Cada tarea tiene botones propios para editar su contenido o
-              eliminarla individualmente. En mobile, esos botones se muestran
-              como íconos (lápiz y basurero). También podés deslizar una tarea
+              eliminarla individualmente. <M /> esos botones se muestran como
+              íconos (lápiz y basurero). <M /> también podés deslizar una tarea
               hacia la izquierda para eliminarla o hacia la derecha para marcarla
               como completada.
             </p>
@@ -72,7 +74,7 @@ export function InstructionsModal({ onClose }: InstructionsModalProps) {
               clickeá sobre las tarjetas para seleccionarlas o deseleccionarlas.
               Tocá "Todos" para marcarlas todas a la vez y "Borrar (N)" para
               eliminarlas. Hacé click fuera del área de tareas o en "Cancelar"
-              para salir del modo sin borrar nada. En mobile, el botón
+              para salir del modo sin borrar nada. <M /> el botón
               "Seleccionar" está visible directamente en el toolbar; al activarlo,
               muta a los botones "Todos", "Borrar (N)" y "Cancelar".
             </p>
@@ -93,8 +95,8 @@ export function InstructionsModal({ onClose }: InstructionsModalProps) {
             <h3 className={styles.sectionTitle}>Resumen por email</h3>
             <p className={styles.sectionText}>
               El botón "✉ Enviar resumen" en el encabezado envía un resumen de
-              tus tareas pendientes y completadas a tu dirección de email. En
-              mobile, accedé a esta función desde el menú ☰.
+              tus tareas pendientes y completadas a tu dirección de email.{" "}
+              <M /> accedé a esta función desde el menú ☰.
             </p>
           </section>
 
