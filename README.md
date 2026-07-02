@@ -69,29 +69,17 @@ Aplicación web de gestión de tareas desarrollada como Proyecto Integrador del 
 
 ### Mobile
 
-**Login**
+| **Login** | **Register** |
+|:---:|:---:|
+| <img src="src/assets/screenshots/mobile-login.png" alt="Login — mobile" width="250" /> | <img src="src/assets/screenshots/mobile-register.png" alt="Register — mobile" width="250" /> |
 
-<img src="src/assets/screenshots/mobile-login.png" alt="Login — mobile" width="250" />
+| **Tasks — Lista (dark)** | **Tasks — Lista (light)** |
+|:---:|:---:|
+| <img src="src/assets/screenshots/mobile-tasks-lista-dark.png" alt="Tasks Lista dark — mobile" width="250" /> | <img src="src/assets/screenshots/mobile-tasks-lista-light.png" alt="Tasks Lista light — mobile" width="250" /> |
 
-**Register**
-
-<img src="src/assets/screenshots/mobile-register.png" alt="Register — mobile" width="250" />
-
-**Tasks — Lista (dark)**
-
-<img src="src/assets/screenshots/mobile-tasks-lista-dark.png" alt="Tasks Lista dark — mobile" width="250" />
-
-**Tasks — Lista (light)**
-
-<img src="src/assets/screenshots/mobile-tasks-lista-light.png" alt="Tasks Lista light — mobile" width="250" />
-
-**Tasks — Solapa (dark)**
-
-<img src="src/assets/screenshots/mobile-tasks-solapa-dark.png" alt="Tasks Solapa dark — mobile" width="250" />
-
-**Tasks — Solapa (light)**
-
-<img src="src/assets/screenshots/mobile-tasks-solapa-light.png" alt="Tasks Solapa light — mobile" width="250" />
+| **Tasks — Solapa (dark)** | **Tasks — Solapa (light)** |
+|:---:|:---:|
+| <img src="src/assets/screenshots/mobile-tasks-solapa-dark.png" alt="Tasks Solapa dark — mobile" width="250" /> | <img src="src/assets/screenshots/mobile-tasks-solapa-light.png" alt="Tasks Solapa light — mobile" width="250" /> |
 
 ---
 
