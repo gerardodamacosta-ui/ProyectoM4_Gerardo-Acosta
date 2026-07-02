@@ -56,6 +56,7 @@ describe("SendSummaryButton", () => {
     await waitFor(() =>
       expect(screen.getByRole("status")).toHaveTextContent(/no se pudo enviar el email/i)
     );
+    expect(mockSendEmail).toHaveBeenCalled();
   });
 
   it("deshabilita el botón mientras se está enviando", async () => {
