@@ -8,13 +8,8 @@ import { useIsMobile } from "../hooks/useIsMobile";
 import { useSwipeToAction } from "../hooks/useSwipeToAction";
 import type { Task, TaskFormValues } from "../types";
 import { toLocalDateString } from "../utils/dateFormatting";
+import { PRIORITY_LABEL } from "../constants/priority";
 import styles from "./TaskCard.module.css";
-
-const PRIORITY_LABEL: Record<NonNullable<Task["priority"]>, string> = {
-  low: "Baja",
-  medium: "Media",
-  high: "Alta",
-};
 
 const PRIORITY_CLASS: Record<NonNullable<Task["priority"]>, string> = {
   low: styles.badgeLow,
