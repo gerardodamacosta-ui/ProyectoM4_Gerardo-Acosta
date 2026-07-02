@@ -2,9 +2,10 @@
 // Prueba los dos caminos del botón de email: éxito y error del serverless.
 // emailService está mockeado: no se hacen llamadas reales a /api/send-email.
 
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import toast, { Toaster } from "react-hot-toast";
 import { SendSummaryButton } from "../src/components/SendSummaryButton";
 
 const { mockSendEmail } = vi.hoisted(() => ({
@@ -22,11 +23,12 @@ const DEFAULT_PROPS = {
 };
 
 describe("SendSummaryButton", () => {
+  afterEach(() => toast.remove());
   it("muestra feedback de éxito cuando el email se envía correctamente", async () => {
     // Arrange
     const user = userEvent.setup();
     mockSendEmail.mockResolvedValue(undefined);
-    render(<SendSummaryButton {...DEFAULT_PROPS} />);
+    render(<><SendSummaryButton {...DEFAULT_PROPS} /><Toaster /></>);
 
     // Act
     await user.click(screen.getByRole("button", { name: /enviar resumen/i }));
@@ -45,14 +47,14 @@ describe("SendSummaryButton", () => {
     // Arrange — caso borde: la función serverless rechaza
     const user = userEvent.setup();
     mockSendEmail.mockRejectedValue(new Error("Error interno del servidor"));
-    render(<SendSummaryButton {...DEFAULT_PROPS} />);
+    render(<><SendSummaryButton {...DEFAULT_PROPS} /><Toaster /></>);
 
     // Act
     await user.click(screen.getByRole("button", { name: /enviar resumen/i }));
 
     // Assert
     await waitFor(() =>
-      expect(screen.getByRole("alert")).toHaveTextContent(/error interno del servidor/i)
+      expect(screen.getByRole("status")).toHaveTextContent(/no se pudo enviar el email/i)
     );
   });
 
@@ -60,7 +62,7 @@ describe("SendSummaryButton", () => {
     // Arrange — promesa que nunca resuelve para atrapar el estado intermedio
     const user = userEvent.setup();
     mockSendEmail.mockReturnValue(new Promise(() => {}));
-    render(<SendSummaryButton {...DEFAULT_PROPS} />);
+    render(<><SendSummaryButton {...DEFAULT_PROPS} /><Toaster /></>);
 
     // Act
     await user.click(screen.getByRole("button", { name: /enviar resumen/i }));

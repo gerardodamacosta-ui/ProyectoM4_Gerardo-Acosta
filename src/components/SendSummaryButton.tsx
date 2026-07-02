@@ -30,7 +30,8 @@ export function SendSummaryButton({
     try {
       await sendTaskSummaryEmail(to, { pending, completed });
       toast.success(MESSAGES.email.success);
-    } catch {
+    } catch (error) {
+      console.error("Error al enviar resumen:", error);
       toast.error(MESSAGES.email.error);
     } finally {
       setLoading(false);
