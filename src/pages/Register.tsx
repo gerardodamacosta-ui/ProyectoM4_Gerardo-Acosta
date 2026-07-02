@@ -191,11 +191,12 @@ export function Register() {
   }`;
 
   return (
-    <div className={styles.page}>
+    <div className={styles.pageWrapper}>
       <div className={styles.orb1} aria-hidden="true" />
       <div className={styles.orb2} aria-hidden="true" />
       <div className={styles.dotGrid} aria-hidden="true" />
 
+      <div className={styles.page}>
       <div className={styles.card}>
         <div className={styles.logoMark} aria-hidden="true">
           {"</>"}
@@ -437,6 +438,7 @@ export function Register() {
             Iniciá sesión
           </Link>
         </p>
+      </div>
       </div>
     </div>
   );

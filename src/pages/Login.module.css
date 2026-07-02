@@ -5,15 +5,23 @@
 
 /* ─── Página ─────────────────────────────────────────────────── */
 
-.page {
-  min-height: 100vh;
+.pageWrapper {
+  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f3effe;
-  font-family: "Courier New", Courier, monospace;
+  flex-direction: column;
   position: relative;
   overflow: hidden;
+  background: #f3effe;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.page {
+  flex: 1;
+  display: flex;
+  align-items: safe center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* ─── Decoración de fondo ─────────────────────────────────────── */
@@ -337,14 +345,42 @@
 
 @media (max-width: 600px) {
   .card {
-    padding-top: 40px;
+    padding-top: 28px;
     padding-right: 24px;
-    padding-bottom: 32px;
+    padding-bottom: 20px;
     padding-left: 24px;
+  }
+
+  .logoMark {
+    margin-bottom: 10px;
+  }
+
+  .tagline {
+    margin-bottom: 16px;
+  }
+
+  .subtitle {
+    margin-bottom: 12px;
+  }
+
+  .forgotRow {
+    margin-bottom: 12px;
+  }
+
+  .primaryBtn {
+    margin-bottom: 12px;
+  }
+
+  .divider {
+    margin-bottom: 10px;
   }
 
   .googleBtn {
     padding: 13px 16px;
     white-space: nowrap;
+  }
+
+  .registerRow {
+    margin-top: 12px;
   }
 }

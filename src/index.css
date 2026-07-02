@@ -138,7 +138,7 @@ body {
 }
 
 #root {
-  min-height: 100svh;
+  min-height: calc(100svh - 1px);
   display: flex;
   flex-direction: column;
 }

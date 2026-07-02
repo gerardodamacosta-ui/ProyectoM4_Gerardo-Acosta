@@ -150,11 +150,12 @@ export function Login() {
   }
 
   return (
-    <div className={styles.page}>
+    <div className={styles.pageWrapper}>
       <div className={styles.orb1} aria-hidden="true" />
       <div className={styles.orb2} aria-hidden="true" />
       <div className={styles.dotGrid} aria-hidden="true" />
 
+      <div className={styles.page}>
       <div className={styles.card}>
         {/* Marca */}
         <div className={styles.logoMark} aria-hidden="true">
@@ -269,6 +270,7 @@ export function Login() {
             Registrate
           </Link>
         </p>
+      </div>
       </div>
     </div>
   );
