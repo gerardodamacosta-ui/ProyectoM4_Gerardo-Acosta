@@ -44,42 +44,42 @@ Aplicación web de gestión de tareas desarrollada como Proyecto Integrador del 
 ### Escritorio
 
 **Login**
-![Login — escritorio](src/assets/screenshots/desktop-login.png)
+<img src="src/assets/screenshots/desktop-login.png" alt="Login — escritorio" width="600" />
 
 **Register**
-![Register — escritorio](src/assets/screenshots/desktop-register.png)
+<img src="src/assets/screenshots/desktop-register.png" alt="Register — escritorio" width="600" />
 
 **Tasks — Lista (dark)**
-![Tasks Lista dark — escritorio](src/assets/screenshots/desktop-tasks-lista-dark.png)
+<img src="src/assets/screenshots/desktop-tasks-lista-dark.png" alt="Tasks Lista dark — escritorio" width="600" />
 
 **Tasks — Lista (light)**
-![Tasks Lista light — escritorio](src/assets/screenshots/desktop-tasks-lista-light.png)
+<img src="src/assets/screenshots/desktop-tasks-lista-light.png" alt="Tasks Lista light — escritorio" width="600" />
 
 **Tasks — Solapa (dark)**
-![Tasks Solapa dark — escritorio](src/assets/screenshots/desktop-tasks-solapa-dark.png)
+<img src="src/assets/screenshots/desktop-tasks-solapa-dark.png" alt="Tasks Solapa dark — escritorio" width="600" />
 
 **Tasks — Solapa (light)**
-![Tasks Solapa light — escritorio](src/assets/screenshots/desktop-tasks-solapa-light.png)
+<img src="src/assets/screenshots/desktop-tasks-solapa-light.png" alt="Tasks Solapa light — escritorio" width="600" />
 
 ### Mobile
 
 **Login**
-![Login — mobile](src/assets/screenshots/mobile-login.png)
+<img src="src/assets/screenshots/mobile-login.png" alt="Login — mobile" width="250" />
 
 **Register**
-![Register — mobile](src/assets/screenshots/mobile-register.png)
+<img src="src/assets/screenshots/mobile-register.png" alt="Register — mobile" width="250" />
 
 **Tasks — Lista (dark)**
-![Tasks Lista dark — mobile](src/assets/screenshots/mobile-tasks-lista-dark.png)
+<img src="src/assets/screenshots/mobile-tasks-lista-dark.png" alt="Tasks Lista dark — mobile" width="250" />
 
 **Tasks — Lista (light)**
-![Tasks Lista light — mobile](src/assets/screenshots/mobile-tasks-lista-light.png)
+<img src="src/assets/screenshots/mobile-tasks-lista-light.png" alt="Tasks Lista light — mobile" width="250" />
 
 **Tasks — Solapa (dark)**
-![Tasks Solapa dark — mobile](src/assets/screenshots/mobile-tasks-solapa-dark.png)
+<img src="src/assets/screenshots/mobile-tasks-solapa-dark.png" alt="Tasks Solapa dark — mobile" width="250" />
 
 **Tasks — Solapa (light)**
-![Tasks Solapa light — mobile](src/assets/screenshots/mobile-tasks-solapa-light.png)
+<img src="src/assets/screenshots/mobile-tasks-solapa-light.png" alt="Tasks Solapa light — mobile" width="250" />
 
 ---
 
