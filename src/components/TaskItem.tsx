@@ -7,18 +7,8 @@ import { TaskForm } from "./TaskForm";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { useSwipeToAction } from "../hooks/useSwipeToAction";
 import type { Task, TaskFormValues } from "../types";
-import type { Timestamp } from "firebase/firestore";
+import { toLocalDateString } from "../utils/dateFormatting";
 import styles from "./TaskItem.module.css";
-
-// Usa métodos locales (getFullYear/getMonth/getDate) en lugar de toISOString()
-// para evitar que la conversión a UTC desplace la fecha en zonas UTC-.
-function toLocalDateString(ts: Timestamp): string {
-  const d = ts.toDate();
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
 
 const PRIORITY_LABEL: Record<NonNullable<Task["priority"]>, string> = {
   low: "Baja",
