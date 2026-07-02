@@ -37,6 +37,52 @@ Aplicación web de gestión de tareas desarrollada como Proyecto Integrador del 
 
 ---
 
+## Capturas de pantalla
+
+> Login y Register mantienen tema fijo claro — el toggle de tema no está disponible en esas pantallas.
+
+### Escritorio
+
+**Login**
+![Login — escritorio](src/assets/screenshots/desktop-login.png)
+
+**Register**
+![Register — escritorio](src/assets/screenshots/desktop-register.png)
+
+**Tasks — Lista (dark)**
+![Tasks Lista dark — escritorio](src/assets/screenshots/desktop-tasks-lista-dark.png)
+
+**Tasks — Lista (light)**
+![Tasks Lista light — escritorio](src/assets/screenshots/desktop-tasks-lista-light.png)
+
+**Tasks — Solapa (dark)**
+![Tasks Solapa dark — escritorio](src/assets/screenshots/desktop-tasks-solapa-dark.png)
+
+**Tasks — Solapa (light)**
+![Tasks Solapa light — escritorio](src/assets/screenshots/desktop-tasks-solapa-light.png)
+
+### Mobile
+
+**Login**
+![Login — mobile](src/assets/screenshots/mobile-login.png)
+
+**Register**
+![Register — mobile](src/assets/screenshots/mobile-register.png)
+
+**Tasks — Lista (dark)**
+![Tasks Lista dark — mobile](src/assets/screenshots/mobile-tasks-lista-dark.png)
+
+**Tasks — Lista (light)**
+![Tasks Lista light — mobile](src/assets/screenshots/mobile-tasks-lista-light.png)
+
+**Tasks — Solapa (dark)**
+![Tasks Solapa dark — mobile](src/assets/screenshots/mobile-tasks-solapa-dark.png)
+
+**Tasks — Solapa (light)**
+![Tasks Solapa light — mobile](src/assets/screenshots/mobile-tasks-solapa-light.png)
+
+---
+
 ## Decisiones de arquitectura
 
 ### Estructura de carpetas
@@ -44,7 +90,8 @@ Aplicación web de gestión de tareas desarrollada como Proyecto Integrador del 
 ```
 ProyectoM4_Gerardo-Acosta/
 ├── src/
-│   ├── assets/         # Recursos estáticos
+│   ├── assets/
+│   │   └── screenshots/    # Capturas de la app por viewport y tema
 │   ├── components/     # Componentes UI reutilizables
 │   ├── constants/      # Strings centralizados (messages.ts)
 │   ├── features/       # Lógica por dominio: auth/ (AuthContext, AuthProvider)
